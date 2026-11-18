@@ -1,0 +1,5 @@
+faixa;ccs_min_mil;ccs_max_mil;bonus_reais_por_litro
+A;0;250;0.12
+B;250;400;0.06
+C;400;600;0.0
+D;600;10000;-0.05

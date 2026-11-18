@@ -1,0 +1,5 @@
+ccs_min_mil;ccs_max_mil;reducao_esperada_pct;custo_reais
+0;250;0;850.0
+250;400;12;850.0
+400;600;22;850.0
+600;10000;30;850.0

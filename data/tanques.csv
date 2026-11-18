@@ -1,0 +1,487 @@
+tanque_id;tipo;capacidade_litros;municipio
+TC001;comunitario;30000;Pitangui
+TC002;comunitario;20000;Pitangui
+TC003;comunitario;20000;Para de Minas
+TC004;comunitario;12000;Juatuba
+TC005;comunitario;30000;Esmeraldas
+TC006;comunitario;10000;Betim
+TC007;comunitario;20000;Itauna
+TC008;comunitario;15000;Itauna
+TC009;comunitario;30000;Esmeraldas
+TC010;comunitario;30000;Sao Joaquim de Bicas
+TC011;comunitario;20000;Itauna
+TC012;comunitario;30000;Itauna
+TC013;comunitario;15000;Esmeraldas
+TC014;comunitario;12000;Florestal
+TC015;comunitario;30000;Esmeraldas
+TC017;comunitario;15000;Mateus Leme
+TC018;comunitario;30000;Florestal
+TC019;comunitario;30000;Para de Minas
+TC020;comunitario;30000;Para de Minas
+TC021;comunitario;30000;Itauna
+TC022;comunitario;20000;Juatuba
+TC023;comunitario;20000;Esmeraldas
+TC024;comunitario;12000;Sao Joaquim de Bicas
+TC025;comunitario;30000;Florestal
+TC026;comunitario;10000;Para de Minas
+TC027;comunitario;20000;Esmeraldas
+TC028;comunitario;15000;Esmeraldas
+TC029;comunitario;30000;Juatuba
+TC030;comunitario;10000;Pitangui
+TC031;comunitario;12000;Florestal
+TC032;comunitario;20000;Betim
+TC033;comunitario;30000;Igarape
+TC034;comunitario;30000;Florestal
+TC035;comunitario;30000;Para de Minas
+TC036;comunitario;12000;Juatuba
+TC037;comunitario;20000;Para de Minas
+TC038;comunitario;30000;Itauna
+TC039;comunitario;20000;Itauna
+TC040;comunitario;15000;Betim
+TC041;comunitario;20000;Igarape
+TC042;comunitario;20000;Igarape
+TC044;comunitario;15000;Juatuba
+TC045;comunitario;30000;Pitangui
+TC046;comunitario;30000;Florestal
+TC047;comunitario;30000;Itauna
+TC048;comunitario;30000;Florestal
+TC049;comunitario;15000;Betim
+TC050;comunitario;20000;Para de Minas
+TC051;comunitario;10000;Igarape
+TC052;comunitario;30000;Igarape
+TC053;comunitario;20000;Sao Joaquim de Bicas
+TC054;comunitario;30000;Florestal
+TC055;comunitario;30000;Betim
+TC056;comunitario;30000;Para de Minas
+TC057;comunitario;30000;Sao Joaquim de Bicas
+TC058;comunitario;30000;Sao Joaquim de Bicas
+TC059;comunitario;15000;Mateus Leme
+TC060;comunitario;20000;Betim
+TI0001;individual;500;Pitangui
+TI0002;individual;3000;Mateus Leme
+TI0003;individual;5000;Mateus Leme
+TI0004;individual;5000;Juatuba
+TI0005;individual;3000;Sao Joaquim de Bicas
+TI0006;individual;2000;Mateus Leme
+TI0007;individual;3000;Esmeraldas
+TI0008;individual;1000;Igarape
+TI0009;individual;2000;Juatuba
+TI0010;individual;5000;Itauna
+TI0011;individual;5000;Para de Minas
+TI0012;individual;500;Igarape
+TI0013;individual;1000;Pitangui
+TI0014;individual;1500;Igarape
+TI0015;individual;5000;Juatuba
+TI0016;individual;1500;Florestal
+TI0017;individual;3000;Mateus Leme
+TI0018;individual;1000;Sao Joaquim de Bicas
+TI0019;individual;5000;Betim
+TI0020;individual;2000;Mateus Leme
+TI0021;individual;3000;Itauna
+TI0022;individual;2000;Mateus Leme
+TI0023;individual;1500;Pitangui
+TI0024;individual;3000;Esmeraldas
+TI0025;individual;5000;Juatuba
+TI0026;individual;2000;Sao Joaquim de Bicas
+TI0027;individual;3000;Juatuba
+TI0028;individual;2000;Para de Minas
+TI0029;individual;5000;Pitangui
+TI0030;individual;1500;Esmeraldas
+TI0031;individual;1500;Itauna
+TI0032;individual;3000;Juatuba
+TI0033;individual;3000;Sao Joaquim de Bicas
+TI0034;individual;1000;Betim
+TI0035;individual;3000;Itauna
+TI0036;individual;2000;Pitangui
+TI0037;individual;1000;Sao Joaquim de Bicas
+TI0038;individual;1500;Igarape
+TI0039;individual;1500;Pitangui
+TI0040;individual;5000;Betim
+TI0041;individual;500;Florestal
+TI0042;individual;5000;Betim
+TI0043;individual;1500;Esmeraldas
+TI0044;individual;500;Juatuba
+TI0045;individual;3000;Juatuba
+TI0046;individual;5000;Mateus Leme
+TI0047;individual;5000;Florestal
+TI0048;individual;3000;Juatuba
+TI0049;individual;3000;Para de Minas
+TI0050;individual;3000;Itauna
+TI0051;individual;3000;Mateus Leme
+TI0052;individual;1000;Juatuba
+TI0053;individual;5000;Pitangui
+TI0054;individual;3000;Esmeraldas
+TI0055;individual;1000;Para de Minas
+TI0056;individual;5000;Igarape
+TI0057;individual;1000;Florestal
+TI0058;individual;5000;Pitangui
+TI0059;individual;500;Mateus Leme
+TI0060;individual;5000;Sao Joaquim de Bicas
+TI0061;individual;5000;Esmeraldas
+TI0062;individual;5000;Florestal
+TI0063;individual;3000;Sao Joaquim de Bicas
+TI0064;individual;2000;Florestal
+TI0065;individual;5000;Juatuba
+TI0066;individual;5000;Esmeraldas
+TI0067;individual;5000;Para de Minas
+TI0068;individual;5000;Pitangui
+TI0069;individual;5000;Pitangui
+TI0070;individual;1000;Betim
+TI0071;individual;1000;Igarape
+TI0072;individual;1500;Betim
+TI0073;individual;1000;Igarape
+TI0074;individual;1500;Juatuba
+TI0075;individual;3000;Pitangui
+TI0076;individual;5000;Betim
+TI0077;individual;1500;Sao Joaquim de Bicas
+TI0078;individual;2000;Juatuba
+TI0079;individual;1000;Sao Joaquim de Bicas
+TI0080;individual;1000;Betim
+TI0081;individual;2000;Sao Joaquim de Bicas
+TI0082;individual;1500;Igarape
+TI0083;individual;1500;Para de Minas
+TI0084;individual;500;Sao Joaquim de Bicas
+TI0085;individual;1500;Mateus Leme
+TI0086;individual;1500;Para de Minas
+TI0087;individual;1500;Igarape
+TI0088;individual;1500;Betim
+TI0089;individual;1000;Betim
+TI0090;individual;1000;Juatuba
+TI0091;individual;5000;Itauna
+TI0092;individual;3000;Esmeraldas
+TI0093;individual;3000;Igarape
+TI0094;individual;5000;Para de Minas
+TI0095;individual;3000;Itauna
+TI0096;individual;3000;Betim
+TI0097;individual;3000;Betim
+TI0098;individual;5000;Sao Joaquim de Bicas
+TI0099;individual;3000;Mateus Leme
+TI0100;individual;5000;Itauna
+TI0101;individual;1000;Pitangui
+TI0102;individual;500;Betim
+TI0103;individual;5000;Itauna
+TI0104;individual;5000;Mateus Leme
+TI0105;individual;5000;Betim
+TI0106;individual;1500;Pitangui
+TI0107;individual;1500;Juatuba
+TI0108;individual;5000;Florestal
+TI0109;individual;5000;Pitangui
+TI0110;individual;1000;Para de Minas
+TI0111;individual;5000;Mateus Leme
+TI0112;individual;1000;Betim
+TI0113;individual;500;Sao Joaquim de Bicas
+TI0114;individual;2000;Pitangui
+TI0115;individual;5000;Mateus Leme
+TI0116;individual;3000;Betim
+TI0117;individual;5000;Itauna
+TI0118;individual;1500;Itauna
+TI0119;individual;5000;Igarape
+TI0120;individual;500;Betim
+TI0121;individual;5000;Esmeraldas
+TI0122;individual;1500;Mateus Leme
+TI0123;individual;2000;Mateus Leme
+TI0124;individual;5000;Esmeraldas
+TI0125;individual;1500;Betim
+TI0126;individual;5000;Mateus Leme
+TI0127;individual;1000;Itauna
+TI0128;individual;3000;Esmeraldas
+TI0129;individual;3000;Pitangui
+TI0130;individual;3000;Mateus Leme
+TI0131;individual;2000;Florestal
+TI0132;individual;5000;Igarape
+TI0133;individual;3000;Mateus Leme
+TI0134;individual;1500;Betim
+TI0135;individual;5000;Para de Minas
+TI0136;individual;500;Mateus Leme
+TI0137;individual;5000;Esmeraldas
+TI0138;individual;5000;Sao Joaquim de Bicas
+TI0139;individual;500;Igarape
+TI0140;individual;1000;Sao Joaquim de Bicas
+TI0141;individual;3000;Juatuba
+TI0142;individual;5000;Esmeraldas
+TI0143;individual;2000;Florestal
+TI0144;individual;3000;Mateus Leme
+TI0145;individual;5000;Sao Joaquim de Bicas
+TI0146;individual;500;Florestal
+TI0147;individual;5000;Esmeraldas
+TI0148;individual;1000;Florestal
+TI0149;individual;1500;Florestal
+TI0150;individual;5000;Igarape
+TI0151;individual;5000;Florestal
+TI0152;individual;1500;Florestal
+TI0153;individual;1500;Juatuba
+TI0154;individual;3000;Pitangui
+TI0155;individual;5000;Sao Joaquim de Bicas
+TI0156;individual;2000;Florestal
+TI0157;individual;5000;Betim
+TI0158;individual;5000;Florestal
+TI0159;individual;2000;Itauna
+TI0160;individual;3000;Sao Joaquim de Bicas
+TI0161;individual;1000;Florestal
+TI0162;individual;5000;Itauna
+TI0163;individual;2000;Esmeraldas
+TI0164;individual;3000;Pitangui
+TI0165;individual;5000;Juatuba
+TI0166;individual;3000;Betim
+TI0167;individual;5000;Para de Minas
+TI0168;individual;500;Betim
+TI0169;individual;1000;Pitangui
+TI0170;individual;500;Pitangui
+TI0171;individual;3000;Mateus Leme
+TI0172;individual;1000;Mateus Leme
+TI0173;individual;500;Esmeraldas
+TI0174;individual;3000;Para de Minas
+TI0175;individual;3000;Pitangui
+TI0176;individual;3000;Itauna
+TI0177;individual;1000;Mateus Leme
+TI0178;individual;1000;Para de Minas
+TI0179;individual;500;Mateus Leme
+TI0180;individual;1500;Pitangui
+TI0181;individual;5000;Igarape
+TI0182;individual;3000;Sao Joaquim de Bicas
+TI0183;individual;1000;Sao Joaquim de Bicas
+TI0184;individual;2000;Sao Joaquim de Bicas
+TI0185;individual;3000;Mateus Leme
+TI0186;individual;2000;Mateus Leme
+TI0187;individual;3000;Mateus Leme
+TI0188;individual;5000;Mateus Leme
+TI0189;individual;1500;Itauna
+TI0190;individual;1500;Betim
+TI0191;individual;5000;Para de Minas
+TI0192;individual;5000;Sao Joaquim de Bicas
+TI0193;individual;3000;Esmeraldas
+TI0194;individual;2000;Esmeraldas
+TI0195;individual;1000;Itauna
+TI0196;individual;1500;Para de Minas
+TI0197;individual;500;Mateus Leme
+TI0198;individual;3000;Juatuba
+TI0199;individual;1000;Para de Minas
+TI0200;individual;500;Sao Joaquim de Bicas
+TI0201;individual;500;Igarape
+TI0202;individual;3000;Betim
+TI0203;individual;1500;Juatuba
+TI0204;individual;3000;Betim
+TI0205;individual;5000;Florestal
+TI0206;individual;5000;Betim
+TI0207;individual;5000;Juatuba
+TI0208;individual;3000;Itauna
+TI0209;individual;1500;Itauna
+TI0210;individual;1500;Betim
+TI0211;individual;3000;Mateus Leme
+TI0212;individual;3000;Itauna
+TI0213;individual;5000;Mateus Leme
+TI0214;individual;1000;Florestal
+TI0215;individual;2000;Florestal
+TI0216;individual;500;Sao Joaquim de Bicas
+TI0217;individual;5000;Betim
+TI0218;individual;2000;Pitangui
+TI0219;individual;500;Sao Joaquim de Bicas
+TI0220;individual;1500;Para de Minas
+TI0221;individual;5000;Juatuba
+TI0222;individual;1000;Igarape
+TI0223;individual;1500;Juatuba
+TI0224;individual;5000;Pitangui
+TI0225;individual;1000;Sao Joaquim de Bicas
+TI0226;individual;1000;Para de Minas
+TI0227;individual;5000;Betim
+TI0228;individual;500;Sao Joaquim de Bicas
+TI0229;individual;3000;Para de Minas
+TI0230;individual;2000;Para de Minas
+TI0231;individual;1000;Florestal
+TI0232;individual;1500;Igarape
+TI0233;individual;3000;Mateus Leme
+TI0234;individual;3000;Betim
+TI0235;individual;2000;Itauna
+TI0236;individual;3000;Pitangui
+TI0237;individual;1000;Sao Joaquim de Bicas
+TI0238;individual;1500;Esmeraldas
+TI0239;individual;3000;Juatuba
+TI0240;individual;500;Florestal
+TI0241;individual;3000;Juatuba
+TI0242;individual;3000;Juatuba
+TI0243;individual;1500;Mateus Leme
+TI0244;individual;1500;Mateus Leme
+TI0245;individual;1000;Mateus Leme
+TI0246;individual;3000;Betim
+TI0247;individual;500;Betim
+TI0248;individual;500;Betim
+TI0249;individual;3000;Sao Joaquim de Bicas
+TI0250;individual;5000;Pitangui
+TI0251;individual;5000;Para de Minas
+TI0252;individual;3000;Igarape
+TI0253;individual;2000;Sao Joaquim de Bicas
+TI0254;individual;500;Betim
+TI0255;individual;2000;Florestal
+TI0256;individual;3000;Pitangui
+TI0257;individual;3000;Igarape
+TI0258;individual;1000;Sao Joaquim de Bicas
+TI0259;individual;5000;Para de Minas
+TI0260;individual;3000;Juatuba
+TI0261;individual;1000;Pitangui
+TI0262;individual;2000;Igarape
+TI0263;individual;3000;Sao Joaquim de Bicas
+TI0264;individual;5000;Esmeraldas
+TI0265;individual;3000;Juatuba
+TI0266;individual;3000;Para de Minas
+TI0267;individual;1000;Betim
+TI0268;individual;5000;Florestal
+TI0269;individual;1500;Esmeraldas
+TI0270;individual;2000;Sao Joaquim de Bicas
+TI0271;individual;500;Para de Minas
+TI0272;individual;3000;Itauna
+TI0273;individual;3000;Betim
+TI0274;individual;5000;Juatuba
+TI0275;individual;5000;Pitangui
+TI0276;individual;5000;Sao Joaquim de Bicas
+TI0277;individual;1500;Para de Minas
+TI0278;individual;1000;Juatuba
+TI0279;individual;5000;Itauna
+TI0280;individual;5000;Florestal
+TI0281;individual;3000;Betim
+TI0282;individual;3000;Sao Joaquim de Bicas
+TI0283;individual;1500;Florestal
+TI0284;individual;3000;Juatuba
+TI0285;individual;5000;Mateus Leme
+TI0286;individual;500;Sao Joaquim de Bicas
+TI0287;individual;3000;Igarape
+TI0288;individual;1000;Sao Joaquim de Bicas
+TI0289;individual;5000;Esmeraldas
+TI0290;individual;3000;Esmeraldas
+TI0291;individual;2000;Juatuba
+TI0292;individual;2000;Pitangui
+TI0293;individual;3000;Pitangui
+TI0294;individual;5000;Igarape
+TI0295;individual;3000;Esmeraldas
+TI0296;individual;3000;Florestal
+TI0297;individual;5000;Sao Joaquim de Bicas
+TI0298;individual;3000;Mateus Leme
+TI0299;individual;500;Mateus Leme
+TI0300;individual;1500;Mateus Leme
+TI0301;individual;2000;Igarape
+TI0302;individual;1000;Sao Joaquim de Bicas
+TI0303;individual;1000;Para de Minas
+TI0304;individual;1500;Betim
+TI0305;individual;2000;Para de Minas
+TI0306;individual;5000;Itauna
+TI0307;individual;1500;Betim
+TI0308;individual;2000;Igarape
+TI0309;individual;5000;Pitangui
+TI0310;individual;1500;Mateus Leme
+TI0311;individual;3000;Mateus Leme
+TI0312;individual;2000;Sao Joaquim de Bicas
+TI0313;individual;3000;Betim
+TI0314;individual;1000;Sao Joaquim de Bicas
+TI0315;individual;5000;Florestal
+TI0316;individual;2000;Igarape
+TI0317;individual;2000;Betim
+TI0318;individual;5000;Esmeraldas
+TI0319;individual;5000;Itauna
+TI0320;individual;1500;Mateus Leme
+TI0321;individual;2000;Itauna
+TI0322;individual;2000;Sao Joaquim de Bicas
+TI0323;individual;3000;Para de Minas
+TI0324;individual;3000;Pitangui
+TI0325;individual;5000;Betim
+TI0326;individual;5000;Sao Joaquim de Bicas
+TI0327;individual;5000;Igarape
+TI0328;individual;3000;Florestal
+TI0329;individual;1000;Esmeraldas
+TI0330;individual;3000;Florestal
+TI0331;individual;5000;Betim
+TI0332;individual;1500;Betim
+TI0333;individual;1500;Esmeraldas
+TI0334;individual;3000;Igarape
+TI0335;individual;3000;Pitangui
+TI0336;individual;3000;Para de Minas
+TI0337;individual;5000;Itauna
+TI0338;individual;1000;Juatuba
+TI0339;individual;1500;Igarape
+TI0340;individual;500;Esmeraldas
+TI0341;individual;2000;Sao Joaquim de Bicas
+TI0342;individual;5000;Mateus Leme
+TI0343;individual;3000;Para de Minas
+TI0344;individual;2000;Itauna
+TI0345;individual;1000;Itauna
+TI0346;individual;2000;Para de Minas
+TI0347;individual;3000;Sao Joaquim de Bicas
+TI0348;individual;5000;Sao Joaquim de Bicas
+TI0349;individual;3000;Igarape
+TI0350;individual;1000;Florestal
+TI0351;individual;5000;Esmeraldas
+TI0352;individual;3000;Para de Minas
+TI0353;individual;3000;Sao Joaquim de Bicas
+TI0354;individual;5000;Sao Joaquim de Bicas
+TI0355;individual;500;Florestal
+TI0356;individual;3000;Itauna
+TI0357;individual;5000;Juatuba
+TI0358;individual;1000;Mateus Leme
+TI0359;individual;3000;Sao Joaquim de Bicas
+TI0360;individual;1000;Igarape
+TI0361;individual;3000;Juatuba
+TI0362;individual;2000;Igarape
+TI0363;individual;5000;Florestal
+TI0364;individual;2000;Esmeraldas
+TI0365;individual;5000;Juatuba
+TI0366;individual;5000;Pitangui
+TI0367;individual;1000;Sao Joaquim de Bicas
+TI0368;individual;3000;Betim
+TI0369;individual;1000;Esmeraldas
+TI0370;individual;1500;Florestal
+TI0371;individual;3000;Mateus Leme
+TI0372;individual;2000;Itauna
+TI0373;individual;2000;Esmeraldas
+TI0374;individual;1000;Betim
+TI0375;individual;1000;Betim
+TI0376;individual;3000;Pitangui
+TI0377;individual;5000;Mateus Leme
+TI0378;individual;5000;Pitangui
+TI0379;individual;2000;Pitangui
+TI0380;individual;5000;Florestal
+TI0381;individual;5000;Pitangui
+TI0382;individual;1000;Juatuba
+TI0383;individual;5000;Mateus Leme
+TI0384;individual;1500;Igarape
+TI0385;individual;3000;Florestal
+TI0386;individual;1500;Juatuba
+TI0387;individual;1000;Juatuba
+TI0388;individual;2000;Mateus Leme
+TI0389;individual;1000;Betim
+TI0390;individual;1000;Sao Joaquim de Bicas
+TI0391;individual;2000;Itauna
+TI0392;individual;3000;Esmeraldas
+TI0393;individual;5000;Igarape
+TI0394;individual;5000;Mateus Leme
+TI0395;individual;2000;Betim
+TI0396;individual;3000;Betim
+TI0397;individual;2000;Igarape
+TI0398;individual;1500;Florestal
+TI0399;individual;3000;Mateus Leme
+TI0400;individual;5000;Juatuba
+TI0401;individual;3000;Igarape
+TI0402;individual;1500;Esmeraldas
+TI0403;individual;2000;Pitangui
+TI0404;individual;5000;Itauna
+TI0405;individual;500;Betim
+TI0406;individual;5000;Pitangui
+TI0407;individual;5000;Para de Minas
+TI0408;individual;3000;Igarape
+TI0409;individual;1500;Para de Minas
+TI0410;individual;1000;Itauna
+TI0411;individual;5000;Mateus Leme
+TI0412;individual;3000;Juatuba
+TI0413;individual;1500;Itauna
+TI0414;individual;5000;Esmeraldas
+TI0415;individual;500;Pitangui
+TI0416;individual;3000;Esmeraldas
+TI0417;individual;3000;Betim
+TI0418;individual;5000;Para de Minas
+TI0419;individual;3000;Betim
+TI0420;individual;1000;Betim
+TI0421;individual;2000;Sao Joaquim de Bicas
+TI0422;individual;5000;Betim
+TI0423;individual;5000;Igarape
+TI0424;individual;5000;Sao Joaquim de Bicas
+TI0425;individual;3000;Para de Minas
+TI0426;individual;1500;Esmeraldas
+TI0427;individual;1000;Para de Minas
+TI0428;individual;1500;Igarape
