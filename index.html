@@ -1,0 +1,2166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="showroom">
+  <title>Squad 2: Quem Derruba a Nota do Tanque? — Bacia Leiteira</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js" defer></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (Branco leite & Cinza grafite suave) */
+      --background: #fafcfd;
+      --surface-container-low: #f1f5f9;
+      --surface-container: #e2e8f0;
+      --surface-container-high: #cbd5e1;
+
+      /* Ink (Cinza grafite) */
+      --on-surface: #1e293b;
+      --on-surface-variant: #475569;
+
+      /* Rules */
+      --outline: #94a3b8;
+      --outline-variant: #e2e8f0;
+
+      /* Accents (Azul tecnológico & Verde esmeralda) */
+      --primary: #0b57d0;
+      --primary-hover: #0842a0;
+      --on-primary: #ffffff;
+      --primary-container: #dbeafe;
+      --on-primary-container: #1e40af;
+
+      --secondary: #047857;
+      --secondary-hover: #065f46;
+      --on-secondary: #ffffff;
+      --secondary-container: #d1fae5;
+      --on-secondary-container: #065f46;
+
+      --tertiary: #1e293b;
+      --error: #b91c1c;
+      --error-container: #fee2e2;
+      --on-error-container: #991b1b;
+      --on-error: #ffffff;
+
+      /* Semantic */
+      --positive: #047857;
+      --warning: #b45309;
+      --warning-container: #fef3c7;
+      --on-warning-container: #92400e;
+      --focus: #0b57d0;
+
+      /* Data series */
+      --data-1: #0b57d0;
+      --data-2: #059669;
+      --data-3: #d97706;
+      --data-4: #dc2626;
+      --data-context: #94a3b8;
+
+      /* Fonts */
+      --font-headline: 'Inter Tight', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-label: 'IBM Plex Mono', monospace;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.25rem, 1.35rem + 3.4vw, 4rem);
+      --headline-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.5rem);
+      --subhead-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Shape (Showroom 20px tiles + pills) */
+      --rounded: 9999px;
+      --rounded-md: 0.75rem;
+      --rounded-lg: 1.25rem;
+      --rounded-full: 9999px;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Style effects */
+      --headline-tracking: -0.03em;
+      --figure-tracking: -0.025em;
+      --tile-shadow-hover: 0 10px 30px color-mix(in srgb, var(--on-surface) 8%, transparent);
+      --chevron: " \203A";
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding-inline: var(--space-lg);
+    }
+
+    .container * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Top navigation bar */
+    .site-header {
+      background: var(--background);
+      border-bottom: 1px solid var(--outline-variant);
+      padding-block: var(--space-md);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+    .brand-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--on-surface);
+      letter-spacing: -0.02em;
+    }
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: var(--rounded-full);
+      background: var(--secondary);
+      display: inline-block;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      transition: color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .nav-link:hover {
+      color: var(--primary);
+      background: var(--surface-container-low);
+    }
+
+    /* Bands */
+    .band { padding-block: var(--space-2xl); }
+    .band.alt { background: var(--surface-container-low); }
+    .band.alt .tile { background: var(--background); }
+    .band.alt .tile-nested { background: var(--surface-container-low); }
+
+    /* Centered Headline Stack (Showroom signature) */
+    .headline-stack {
+      text-align: center;
+      max-width: 52rem;
+      margin: 0 auto var(--space-xl);
+    }
+    .hero-stack {
+      text-align: center;
+      max-width: 58rem;
+      margin: 0 auto;
+      padding-block: var(--space-xl) var(--space-lg);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      background: var(--secondary-container);
+      color: var(--on-secondary-container);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      margin-bottom: var(--space-md);
+    }
+    .eyebrow.blue {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    h1 {
+      font-size: var(--display-size);
+      font-weight: 700;
+      letter-spacing: var(--headline-tracking);
+      line-height: 1.06;
+    }
+    h2 {
+      font-size: var(--headline-size);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+    }
+    h3 {
+      font-size: var(--subhead-size);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      line-height: 1.25;
+    }
+    .lede {
+      color: var(--on-surface-variant);
+      font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      max-width: 58ch;
+      margin: var(--space-md) auto 0;
+      line-height: 1.55;
+    }
+
+    /* Pill Action Buttons (CTA) */
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      border-radius: var(--rounded);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      padding: 0.875rem var(--space-lg);
+      min-height: 48px;
+      text-decoration: none;
+      border: 0;
+      cursor: pointer;
+      transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+    .btn-pill:active { transform: scale(0.98); }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-emerald {
+      background: var(--secondary);
+      color: var(--on-secondary);
+    }
+    .btn-emerald:hover { background: var(--secondary-hover); }
+    .btn-ghost {
+      background: var(--surface-container);
+      color: var(--on-surface);
+    }
+    .btn-ghost:hover { background: var(--surface-container-high); }
+
+    .cta-caption {
+      margin-top: var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+
+    /* Academic Team Strip */
+    .team-tile {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      margin-top: var(--space-xl);
+      text-align: left;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+    }
+    .team-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+    }
+    .team-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs) var(--space-sm);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .team-member {
+      background: var(--background);
+      color: var(--on-surface);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded-full);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .advisor-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 2px solid var(--outline-variant);
+      padding-left: var(--space-lg);
+    }
+    .advisor-name {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.0625rem;
+      color: var(--on-surface);
+    }
+    .inst-name {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      margin-top: var(--space-xs);
+    }
+
+    /* Bento Tiles */
+    .bento-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+    .bento-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .bento-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .tile {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      border: 0;
+      transition: box-shadow var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+    .tile.interactive:hover {
+      box-shadow: var(--tile-shadow-hover);
+      transform: translateY(-2px);
+    }
+    .tile.figure {
+      text-align: center;
+      padding: var(--space-xl) var(--space-md);
+    }
+    .tile.figure .fig-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--on-surface-variant);
+    }
+    .tile.figure .fig-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: clamp(2rem, 1.5rem + 1.5vw, 2.75rem);
+      letter-spacing: var(--figure-tracking);
+      line-height: 1.1;
+      color: var(--on-surface);
+      margin-block: var(--space-sm);
+      font-variant-numeric: tabular-nums;
+    }
+    .tile.figure .fig-caption {
+      font-size: 0.8125rem;
+      color: var(--on-surface-variant);
+    }
+    .fig-value.accent-blue { color: var(--primary); }
+    .fig-value.accent-emerald { color: var(--secondary); }
+
+    /* Section 2: Business Pain + Calculator */
+    .split-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .prose-col p {
+      margin: 0 0 var(--space-md);
+      max-width: 65ch;
+      color: var(--on-surface);
+    }
+    .prose-col p:last-child { margin-bottom: 0; }
+
+    .tier-table-wrap {
+      overflow-x: auto;
+      margin-top: var(--space-md);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9375rem;
+    }
+    th {
+      text-align: left;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 2px solid var(--outline-variant);
+    }
+    td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+      font-variant-numeric: tabular-nums;
+    }
+    td.num, th.num { text-align: right; font-family: var(--font-label); }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--rounded-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-label);
+    }
+    .badge-a { background: var(--secondary-container); color: var(--on-secondary-container); }
+    .badge-b { background: var(--primary-container); color: var(--on-primary-container); }
+    .badge-c { background: var(--warning-container); color: var(--on-warning-container); }
+    .badge-d { background: var(--error-container); color: var(--on-error-container); }
+
+    /* Slider & Inputs */
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+    .control-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .control-val {
+      font-family: var(--font-label);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      height: 8px;
+      cursor: pointer;
+    }
+    .calc-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .mini-stat {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-md);
+      padding: var(--space-md);
+    }
+    .mini-stat-label {
+      font-size: 0.75rem;
+      color: var(--on-surface-variant);
+      font-weight: 600;
+    }
+    .mini-stat-val {
+      font-family: var(--font-headline);
+      font-size: 1.375rem;
+      font-weight: 700;
+      margin-top: var(--space-xs);
+      font-variant-numeric: tabular-nums;
+    }
+    .loss-callout {
+      margin-top: var(--space-md);
+      background: var(--error-container);
+      color: var(--on-error-container);
+      padding: var(--space-md);
+      border-radius: var(--rounded-md);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+    .loss-callout strong {
+      font-family: var(--font-headline);
+      font-size: 1.25rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Section 3: Interactive CSV Mapping & D1-D5 Sanitization */
+    .csv-explorer {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .csv-btn-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .csv-tab-btn {
+      width: 100%;
+      text-align: left;
+      background: var(--surface-container-low);
+      border: 0;
+      border-radius: var(--rounded-md);
+      padding: var(--space-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      min-height: 54px;
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .csv-tab-btn:hover { background: var(--surface-container); }
+    .csv-tab-btn[aria-selected="true"] {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .csv-tab-btn[aria-selected="true"] .csv-meta {
+      color: var(--primary-container);
+    }
+    .csv-name {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.9375rem;
+    }
+    .csv-meta {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--on-surface-variant);
+    }
+    .col-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-block: var(--space-md);
+    }
+    .chip {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--rounded-full);
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-weight: 500;
+    }
+    .chip.muted {
+      background: var(--surface-container);
+      color: var(--on-surface-variant);
+      text-decoration: line-through;
+    }
+    .code-box {
+      background: var(--on-surface);
+      color: var(--background);
+      font-family: var(--font-label);
+      font-size: 0.8125rem;
+      padding: var(--space-md);
+      border-radius: var(--rounded-md);
+      overflow-x: auto;
+      line-height: 1.5;
+      margin-top: var(--space-md);
+    }
+
+    /* Defects D1-D5 Grid */
+    .defects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+    .defect-card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .defect-code {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .defect-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .defect-desc {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+
+    /* D5 Error Simulator Toggle */
+    .d5-sim {
+      margin-top: var(--space-lg);
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-lg);
+    }
+    .toggle-pill {
+      display: inline-flex;
+      background: var(--surface-container);
+      padding: var(--space-xs);
+      border-radius: var(--rounded-full);
+      gap: var(--space-xs);
+    }
+    .toggle-opt {
+      border: 0;
+      background: transparent;
+      color: var(--on-surface-variant);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded-full);
+      cursor: pointer;
+      min-height: 44px;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .toggle-opt[aria-pressed="true"] {
+      background: var(--background);
+      color: var(--on-surface);
+    }
+
+    /* Section 4: 3-Level Analytical Engine + Live Tank Sandbox */
+    .level-badge {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.7rem;
+      border-radius: var(--rounded-full);
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      margin-bottom: var(--space-sm);
+    }
+    .level-badge.emerald {
+      background: var(--secondary-container);
+      color: var(--on-secondary-container);
+    }
+    .formula-box {
+      font-family: var(--font-label);
+      font-size: 0.8125rem;
+      background: var(--background);
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded-md);
+      margin-top: var(--space-md);
+      overflow-x: auto;
+    }
+    .band:not(.alt) .formula-box {
+      background: var(--surface-container);
+    }
+
+    /* Interactive Tank Sandbox */
+    .sandbox-card {
+      margin-top: var(--space-2xl);
+      background: var(--background);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+    }
+    .sandbox-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .preset-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .preset-btn {
+      border: 0;
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded-full);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      min-height: 44px;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .preset-btn:hover { background: var(--surface-container); }
+    .preset-btn[aria-pressed="true"] {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .sandbox-kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .kpi-tile {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-md);
+      padding: var(--space-md);
+    }
+    .kpi-tile-label {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--on-surface-variant);
+    }
+    .kpi-tile-value {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-top: var(--space-xs);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sandbox-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .chart-box {
+      position: relative;
+      min-height: 360px;
+      width: 100%;
+    }
+    .farm-action-btn {
+      border: 0;
+      border-radius: var(--rounded-full);
+      padding: 0.35rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 36px;
+      font-family: var(--font-body);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .farm-action-btn.remove {
+      background: var(--surface-container);
+      color: var(--on-surface);
+    }
+    .farm-action-btn.remove.active {
+      background: var(--error);
+      color: var(--on-error);
+    }
+    .farm-action-btn.train {
+      background: var(--secondary-container);
+      color: var(--on-secondary-container);
+    }
+    .farm-action-btn.train.active {
+      background: var(--secondary);
+      color: var(--on-secondary);
+    }
+    .action-cell {
+      display: flex;
+      gap: var(--space-xs);
+      flex-wrap: wrap;
+    }
+    .shield-banner {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--rounded-md);
+      background: var(--warning-container);
+      color: var(--on-warning-container);
+      font-size: 0.9375rem;
+      display: none;
+    }
+    .shield-banner.visible { display: block; }
+
+    /* Section 5: Validation & Global Results */
+    .validation-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+    .tc018-highlight {
+      background: var(--secondary-container);
+      color: var(--on-secondary-container);
+      border-radius: var(--rounded-md);
+      padding: var(--space-md);
+      margin-top: var(--space-md);
+      font-size: 0.9375rem;
+    }
+    .csv-output-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    /* Section 6: GitHub Repository Tree */
+    .repo-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .tree-box {
+      background: var(--on-surface);
+      color: var(--background);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      font-family: var(--font-label);
+      font-size: 0.875rem;
+    }
+    .tree-item {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      color: inherit;
+      font-family: inherit;
+      font-size: inherit;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      min-height: 40px;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .tree-item:hover { background: color-mix(in srgb, var(--background) 10%, transparent); }
+    .tree-item[aria-selected="true"] {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .tree-indent-1 { padding-left: 1.75rem; }
+    .tree-indent-2 { padding-left: 3.25rem; }
+
+    /* Footer */
+    footer {
+      background: var(--on-surface);
+      color: var(--surface-container-low);
+      padding-block: var(--space-2xl);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+    }
+    footer h3 { color: var(--background); margin-bottom: var(--space-sm); }
+    footer p, footer li {
+      color: var(--surface-container);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+    footer ul {
+      padding-left: var(--space-md);
+      margin: var(--space-xs) 0 0;
+    }
+    .footer-bottom {
+      margin-top: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--on-surface-variant);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--outline);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    /* Container queries & Responsive */
+    .card-wrap { container-type: inline-size; }
+    @container (max-width: 480px) {
+      .calc-comparison { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      .team-tile,
+      .split-grid,
+      .csv-explorer,
+      .sandbox-grid,
+      .validation-grid,
+      .repo-layout,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .advisor-block {
+        border-left: 0;
+        border-top: 1px solid var(--outline-variant);
+        padding-left: 0;
+        padding-top: var(--space-md);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding-inline: var(--space-md); }
+      .band { padding-block: var(--space-xl); }
+      .cta-row { flex-direction: column; width: 100%; }
+      .btn-pill { width: 100%; }
+      .chart-box { min-height: 300px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    /* Pitch de Apresentação (vídeo) */
+    .pitch-wrap { max-width: 60rem; margin: 0 auto; }
+    .pitch-frame {
+      background: var(--tertiary);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      box-shadow: var(--tile-shadow-hover);
+    }
+    .pitch-frame video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+    }
+    .pitch-fallback { padding: var(--space-lg); color: var(--background); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-tag">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>Bacia Leiteira · Squad 2</span>
+      </div>
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a class="nav-link" href="#problema">O Problema</a>
+        <a class="nav-link" href="#dados">Bases &amp; D1–D5</a>
+        <a class="nav-link" href="#motor">Motor 3 Níveis</a>
+        <a class="nav-link" href="#resultados">Resultados</a>
+        <a class="nav-link" href="#repositorio">Repositório</a>
+        <a class="nav-link" href="#pitch">Pitch</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. HERO SECTION & CTA DOWNLOADS -->
+    <section class="band" id="inicio">
+      <div class="container">
+        <div class="hero-stack">
+          <div class="eyebrow">
+            <i data-lucide="sprout" width="16" height="16" aria-hidden="true"></i>
+            <span>AgTech &amp; Ciência de Dados · Bacia Leiteira (Março–Junho/2026)</span>
+          </div>
+          <h1>Squad 2: Quem Derruba a Nota do Tanque?</h1>
+          <p class="lede">
+            Otimização de Qualidade e Bonificação em Tanques Comunitários de Leite. Uma arquitetura analítica em Python e Power BI que isola o impacto individual na Contagem de Células Somáticas (CCS) e transforma penalizações coletivas em plano de capacitação com retorno mensurável.
+          </p>
+
+          <!-- 2. CALL TO ACTION (RELATIVE DOWNLOAD LINKS) -->
+          <div class="cta-row">
+            <a href="A3-Segunda.py" download="A3-Segunda.py" class="btn-pill btn-primary">
+              <i data-lucide="file-code-2" width="18" height="18" aria-hidden="true"></i>
+              <span>Baixar Código Python (A3-Segunda.py)</span>
+            </a>
+            <a href="dashboard_bacia_leiteira.pbix" download="dashboard_bacia_leiteira.pbix" class="btn-pill btn-emerald">
+              <i data-lucide="layout-dashboard" width="18" height="18" aria-hidden="true"></i>
+              <span>Baixar Dashboard Power BI (.pbix)</span>
+            </a>
+          </div>
+          <p class="cta-caption">Links relativos prontos para publicação direta no GitHub Pages (raiz do repositório).</p>
+        </div>
+
+        <!-- Team & Academic Credits -->
+        <div class="team-tile" aria-label="Identificação da equipe acadêmica">
+          <div>
+            <div class="team-label">INTEGRANTES DA SQUAD 2</div>
+            <ul class="team-list">
+              <li class="team-member">André Allan Pereira Rezende</li>
+              <li class="team-member">Isaque Gabriel Freitas Santiago</li>
+              <li class="team-member">Lívia Terezinha Souza e Silva</li>
+              <li class="team-member">Luís Gustavo Cunha Oliveira</li>
+              <li class="team-member">Philipe Guimarães Pedro dos Santos</li>
+            </ul>
+          </div>
+          <div class="advisor-block">
+            <div class="team-label">ORIENTAÇÃO ACADÊMICA</div>
+            <div class="advisor-name">Prof. Ted do Prado Amaral</div>
+            <div class="inst-name">Centro Universitário UNA – Betim/MG · Projeto Integrador A3 (Estruturas de Dados e Análise de Algoritmos)</div>
+          </div>
+        </div>
+
+        <!-- Headline Figures -->
+        <div class="bento-4">
+          <div class="tile figure">
+            <div class="fig-label">Tanques Comunitários</div>
+            <div class="fig-value accent-blue">58</div>
+            <div class="fig-caption">Reservatórios coletivos (5 a 12 fazendas)</div>
+          </div>
+          <div class="tile figure">
+            <div class="fig-label">Disparidade Faixa A vs. D</div>
+            <div class="fig-value">R$ 0,17/L</div>
+            <div class="fig-caption">Impacto de +R$ 4.000/mês em 800 L/dia</div>
+          </div>
+          <div class="tile figure">
+            <div class="fig-label">ROI no Controle TC018</div>
+            <div class="fig-value accent-emerald">1.244%</div>
+            <div class="fig-caption">+R$ 10.573/mês com 1 treinamento (março)</div>
+          </div>
+          <div class="tile figure">
+            <div class="fig-label">ROI Médio Global</div>
+            <div class="fig-value accent-emerald">358,8%</div>
+            <div class="fig-caption">Em 109 planos viáveis nos 4 meses</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. O PROBLEMA DE NEGÓCIO (A DOR DO PRODUTOR) -->
+    <section class="band alt" id="problema">
+      <div class="container">
+        <div class="headline-stack">
+          <div class="eyebrow blue">
+            <i data-lucide="alert-triangle" width="16" height="16" aria-hidden="true"></i>
+            <span>O Problema de Negócio · A Dor do Produtor</span>
+          </div>
+          <h2>Um único rebanho com mastite penaliza até doze famílias no mesmo tanque</h2>
+          <p class="lede">
+            O laticínio afere a Contagem de Células Somáticas (CCS) globalmente no tanque comunitário, nunca por produtor. Sem rastreabilidade volumétrica, quem entrega leite de alta qualidade perde bônus sem conseguir provar a origem do problema.
+          </p>
+        </div>
+
+        <div class="split-grid">
+          <div class="tile prose-col">
+            <h3>A física da mistura e a tabela de bonificação</h3>
+            <p>
+              Em tanques comunitários que agrupam de 5 a 12 propriedades rurais, o leite se mistura antes da coleta do caminhão. Como a contaminação celular se dilui proporcionalmente ao volume entregue, uma fazenda de grande porte com <strong>800 litros/dia</strong> exerce um peso <strong>10 vezes maior</strong> na qualidade final do lote do que um pequeno produtor de <strong>80 litros/dia</strong>.
+            </p>
+            <p>
+              O preço base pago pela cooperativa é de <strong>R$ 2,45 por litro</strong>, ajustado pela faixa de CCS obtida pelo tanque naquele mês:
+            </p>
+            <div class="tier-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Faixa</th>
+                    <th>CCS (mil cél/ml)</th>
+                    <th class="num">Bônus / Penalização</th>
+                    <th class="num">Preço Final</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="badge badge-a">Faixa A</span></td>
+                    <td>0 a &lt; 250</td>
+                    <td class="num">+R$ 0,12 / L</td>
+                    <td class="num">R$ 2,57 / L</td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge badge-b">Faixa B</span></td>
+                    <td>250 a &lt; 400</td>
+                    <td class="num">+R$ 0,06 / L</td>
+                    <td class="num">R$ 2,51 / L</td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge badge-c">Faixa C</span></td>
+                    <td>400 a &lt; 600</td>
+                    <td class="num">R$ 0,00 / L</td>
+                    <td class="num">R$ 2,45 / L</td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge badge-d">Faixa D</span></td>
+                    <td>&ge; 600</td>
+                    <td class="num">-R$ 0,05 / L</td>
+                    <td class="num">R$ 2,40 / L</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="tile card-wrap">
+            <h3>Simulador de Impacto Financeiro Mensal</h3>
+            <p class="lede" style="font-size: 0.9375rem; text-align: left; margin-top: var(--space-xs);">
+              Ajuste a entrega diária do produtor para medir a disparidade de R$ 0,17/L entre a Faixa A e a Faixa D em 30 dias.
+            </p>
+
+            <div class="control-group" style="margin-top: var(--space-lg);">
+              <label class="control-label" for="slider-daily-vol">
+                <span>Produção diária da fazenda</span>
+                <span class="control-val" id="daily-vol-display">800 L/dia (24.000 L/mês)</span>
+              </label>
+              <input type="range" id="slider-daily-vol" min="80" max="1500" step="20" value="800" oninput="updatePainCalc(this.value)">
+            </div>
+
+            <div class="calc-comparison">
+              <div class="mini-stat">
+                <div class="mini-stat-label">Faturamento na Faixa A (+R$ 0,12/L)</div>
+                <div class="mini-stat-val" id="rev-faixa-a" style="color: var(--secondary);">R$ 61.680,00</div>
+              </div>
+              <div class="mini-stat">
+                <div class="mini-stat-label">Faturamento na Faixa D (-R$ 0,05/L)</div>
+                <div class="mini-stat-val" id="rev-faixa-d" style="color: var(--error);">R$ 57.600,00</div>
+              </div>
+            </div>
+
+            <div class="loss-callout">
+              <span>Perda mensal injusta por queda de nota:</span>
+              <strong id="rev-diff-loss">R$ 4.080,00 / mês</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. BASES DE DADOS & SANEAMENTO D1-D5 -->
+    <section class="band" id="dados">
+      <div class="container">
+        <div class="headline-stack">
+          <div class="eyebrow">
+            <i data-lucide="database" width="16" height="16" aria-hidden="true"></i>
+            <span>Engenharia de Dados · 01/03/2026 a 30/06/2026</span>
+          </div>
+          <h2>Seis tabelas essenciais filtradas de 18 CSVs e blindadas contra 5 famílias de defeitos</h2>
+          <p class="lede">
+            Em vez de carregar ruído operacional, o pipeline minimalista <code>executar_pipeline_squad2()</code> retém apenas os campos ligados à qualidade biológica (CCS) e ao volume entregue, executando higienização resiliente na leitura.
+          </p>
+        </div>
+
+        <!-- Interactive CSV Mapper -->
+        <div class="csv-explorer">
+          <div class="csv-btn-list" role="tablist" aria-label="Planilhas do projeto">
+            <button type="button" class="csv-tab-btn" role="tab" aria-selected="true" onclick="selectCsvTab('fazendas', this)">
+              <div>
+                <div class="csv-name">fazendas.csv</div>
+                <div class="csv-meta">Cadastro e alocação</div>
+              </div>
+              <span class="csv-meta">962 linhas</span>
+            </button>
+            <button type="button" class="csv-tab-btn" role="tab" aria-selected="false" onclick="selectCsvTab('tanques', this)">
+              <div>
+                <div class="csv-name">tanques.csv</div>
+                <div class="csv-meta">Filtro de comunitários (TC###)</div>
+              </div>
+              <span class="csv-meta">486 linhas</span>
+            </button>
+            <button type="button" class="csv-tab-btn" role="tab" aria-selected="false" onclick="selectCsvTab('analises', this)">
+              <div>
+                <div class="csv-name">analises.csv</div>
+                <div class="csv-meta">Indicadores de CCS mensal</div>
+              </div>
+              <span class="csv-meta">3.800 linhas</span>
+            </button>
+            <button type="button" class="csv-tab-btn" role="tab" aria-selected="false" onclick="selectCsvTab('coletas', this)">
+              <div>
+                <div class="csv-name">coletas.csv</div>
+                <div class="csv-meta">Entregas diárias de leite</div>
+              </div>
+              <span class="csv-meta">38.924 linhas</span>
+            </button>
+            <button type="button" class="csv-tab-btn" role="tab" aria-selected="false" onclick="selectCsvTab('faixas', this)">
+              <div>
+                <div class="csv-name">faixas_bonificacao.csv</div>
+                <div class="csv-meta">Regras dinâmicas de preço</div>
+              </div>
+              <span class="csv-meta">4 faixas</span>
+            </button>
+            <button type="button" class="csv-tab-btn" role="tab" aria-selected="false" onclick="selectCsvTab('treinamento', this)">
+              <div>
+                <div class="csv-name">efeito_treinamento.csv</div>
+                <div class="csv-meta">Redução esperada &amp; custo</div>
+              </div>
+              <span class="csv-meta">R$ 850/fazenda</span>
+            </button>
+          </div>
+
+          <div class="tile" id="csv-detail-panel">
+            <div class="team-label" id="csv-order-label">ORDEM DE LEITURA #3 · CHAVE RELACIONAL</div>
+            <h3 id="csv-detail-title">fazendas.csv — Árvore de Alimentação</h3>
+            <p id="csv-detail-desc" style="color: var(--on-surface-variant); margin-top: var(--space-sm);">
+              Mapeia cada propriedade rural ao seu respectivo reservatório. Apenas as chaves relacionais são retidas, descartando atributos de espécie, área ou ordenha que não alteram o cálculo de CCS do tanque.
+            </p>
+            <div class="team-label" style="margin-top: var(--space-md);">COLUNAS RETIDAS VS. DESCARTADAS</div>
+            <div class="col-chips" id="csv-detail-chips"></div>
+            <div class="code-box" id="csv-detail-snippet"></div>
+          </div>
+        </div>
+
+        <!-- Saneamento D1-D5 -->
+        <div class="defects-grid" aria-label="Pipeline de saneamento de defeitos D1 a D5">
+          <div class="defect-card">
+            <div class="defect-code">DEFEITO D1</div>
+            <div class="defect-title">Grafia Divergente</div>
+            <p class="defect-desc">Normalização de chaves primárias e estrangeiras com <code>.strip().upper()</code>, evitando quebras nos cruzamentos.</p>
+          </div>
+          <div class="defect-card">
+            <div class="defect-code">DEFEITO D2</div>
+            <div class="defect-title">Cadastros Duplicados</div>
+            <p class="defect-desc">Deduplicação cadastral e isolamento exclusivo das propriedades ativas da cooperativa.</p>
+          </div>
+          <div class="defect-card">
+            <div class="defect-code">DEFEITO D3</div>
+            <div class="defect-title">Datas Impossíveis</div>
+            <p class="defect-desc">~160 coletas inválidas (ex.: <code>31/04/2026</code>, <code>2026-02-30</code>) descartadas; datas válidas normalizadas para <code>YYYY-MM-01</code>.</p>
+          </div>
+          <div class="defect-card">
+            <div class="defect-code">DEFEITO D4</div>
+            <div class="defect-title">Referências Órfãs</div>
+            <p class="defect-desc">Remoção automática de registros de teste (<code>F9xxx</code>, <code>F9999</code>, <code>P9999</code>) e exclusão de tanques não comunitários.</p>
+          </div>
+          <div class="defect-card">
+            <div class="defect-code">DEFEITO D5</div>
+            <div class="defect-title">Unidades Misturadas</div>
+            <p class="defect-desc">~380 coletas em KG convertidas por <code>1,032 kg/L</code>; ~16% das análises em <code>cel_ml</code> divididas por <code>1.000</code>.</p>
+          </div>
+        </div>
+
+        <!-- Interactive D5 Proof -->
+        <div class="d5-sim">
+          <div style="max-width: 38rem;">
+            <div class="team-label">IMPACTO CRÍTICO DA PADRONIZAÇÃO D5</div>
+            <h3 style="margin-bottom: var(--space-xs);">O que acontece se uma única análise em <code>cel_ml</code> não for dividida por 1.000?</h3>
+            <p id="d5-sim-text" style="margin: 0; color: var(--on-surface-variant); font-size: 0.9375rem;">
+              Com a conversão ativa, uma amostra de <strong>250.000 cel/ml</strong> entra corretamente como <strong>250 mil cél/ml</strong>. O tanque permanece na Faixa A (+R$ 0,12/L).
+            </p>
+          </div>
+          <div>
+            <div class="toggle-pill" role="group" aria-label="Modo de conversão D5">
+              <button type="button" class="toggle-opt" id="btn-d5-clean" aria-pressed="true" onclick="toggleD5Mode(true)">Com Saneamento D5</button>
+              <button type="button" class="toggle-opt" id="btn-d5-raw" aria-pressed="false" onclick="toggleD5Mode(false)">Sem Conversão</button>
+            </div>
+            <div id="d5-result-badge" style="margin-top: var(--space-sm); text-align: right;">
+              <span class="badge badge-a">CCS Tanque: 235 mil cél/ml · Faixa A (+R$ 0,12/L)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. MOTOR ANALÍTICO EM 3 NÍVEIS + LABORATÓRIO INTERATIVO -->
+    <section class="band alt" id="motor">
+      <div class="container">
+        <div class="headline-stack">
+          <div class="eyebrow blue">
+            <i data-lucide="cpu" width="16" height="16" aria-hidden="true"></i>
+            <span>Arquitetura Algorítmica Sem Variáveis Hardcoded</span>
+          </div>
+          <h2>O Motor Analítico em 3 Níveis</h2>
+          <p class="lede">
+            O processamento percorre dinamicamente todos os tanques comunitários e meses identificados nas planilhas, do diagnóstico volumétrico à otimização cirúrgica de treinamentos.
+          </p>
+        </div>
+
+        <div class="bento-3">
+          <div class="tile">
+            <span class="level-badge">NÍVEL 1 · STATUS QUO</span>
+            <h3>Média Ponderada pelo Volume</h3>
+            <p style="color: var(--on-surface-variant); font-size: 0.9375rem;">
+              Calcula o CCS real do lote ponderando a análise mensal pelo volume entregue por cada fazenda. Propriedades sem análise no mês são desconsideradas do CCS ponderado, mantendo seu volume apenas no rateio do faturamento bruto.
+            </p>
+            <div class="formula-box">CCS_Tanque = Σ(CCS_i × Vol_i) / Σ(Vol_i)<br>Faturamento = Vol_Total × (R$ 2,45 + Bônus)</div>
+          </div>
+
+          <div class="tile">
+            <span class="level-badge">NÍVEL 2 · CONTRAFACTUAL</span>
+            <h3>Simulação Leave-One-Out</h3>
+            <p style="color: var(--on-surface-variant); font-size: 0.9375rem;">
+              Para 100% das fazendas do tanque, simula a exclusão temporária da propriedade <em>k</em> e compara a nova faixa. Mede em reais quem <strong>Derruba a Nota</strong> (saída melhora o grupo) ou <strong>Protege o Grupo</strong> (saída piora a média).
+            </p>
+            <div class="formula-box">CCS_sem_k = Σ(i≠k)(CCS_i × Vol_i) / (Vol_Total − Vol_k)<br>Ganho = (Vol_Total − Vol_k) × (Bônus_novo − Bônus_atual)</div>
+          </div>
+
+          <div class="tile">
+            <span class="level-badge emerald">NÍVEL 3 · OTIMIZAÇÃO GULOSA</span>
+            <h3>Treinamento &amp; Blindagem Financeira</h3>
+            <p style="color: var(--on-surface-variant); font-size: 0.9375rem;">
+              Aplica algoritmo guloso (R$ 850/fazenda; redução de 12%, 22% ou 30% de CCS) para achar o menor grupo a capacitar. Em <strong>Casos Limite</strong> inviáveis (nem 100% treinados mudam de faixa), zera a sugestão (<strong>R$ 0,00</strong>).
+            </p>
+            <div class="formula-box">Meta inviável (100% treino ≥ 400 mil)?<br>→ Blindagem: 0 fazendas · Custo R$ 0,00</div>
+          </div>
+        </div>
+
+        <!-- Interactive Sandbox -->
+        <div class="sandbox-card" id="simulador-tanque">
+          <div class="sandbox-toolbar">
+            <div>
+              <div class="team-label">SIMULADOR INTERATIVO DOS 3 NÍVEIS</div>
+              <h3>Teste o Leave-One-Out e o Algoritmo Guloso na prática</h3>
+            </div>
+            <div class="preset-group" role="group" aria-label="Cenários pré-carregados">
+              <button type="button" class="preset-btn" id="preset-tc018-mar" aria-pressed="true" onclick="loadSandboxPreset('tc018_mar')">TC018 · Março (Faixa C)</button>
+              <button type="button" class="preset-btn" id="preset-tc018-abr" aria-pressed="false" onclick="loadSandboxPreset('tc018_abr')">TC018 · Abril (Faixa B)</button>
+              <button type="button" class="preset-btn" id="preset-limite" aria-pressed="false" onclick="loadSandboxPreset('limite')">Caso Limite · TC001 Maio (Blindagem)</button>
+            </div>
+          </div>
+
+          <div class="sandbox-kpis">
+            <div class="kpi-tile">
+              <div class="kpi-tile-label">CCS PONDERADO DO TANQUE</div>
+              <div class="kpi-tile-value" id="sb-ccs">418,86 mil</div>
+            </div>
+            <div class="kpi-tile">
+              <div class="kpi-tile-label">FAIXA &amp; BÔNUS / LITRO</div>
+              <div class="kpi-tile-value" id="sb-tier">Faixa C (R$ 0,00)</div>
+            </div>
+            <div class="kpi-tile">
+              <div class="kpi-tile-label">INVESTIMENTO EM TREINO</div>
+              <div class="kpi-tile-value" id="sb-cost">R$ 0,00</div>
+            </div>
+            <div class="kpi-tile">
+              <div class="kpi-tile-label">VARIAÇÃO NA RECEITA DO GRUPO</div>
+              <div class="kpi-tile-value" id="sb-delta" style="color: var(--secondary);">R$ 0,00 / mês</div>
+            </div>
+          </div>
+
+          <div id="sb-shield-alert" class="shield-banner">
+            <strong>Blindagem Financeira Ativada (Caso Limite):</strong> Mesmo aplicando treinamento em 100% das propriedades deste tanque, o CCS ponderado permanece acima do teto da faixa superior (400 mil cél/ml). O algoritmo sugere <strong>0 treinamentos</strong> e mantém o custo em <strong>R$ 0,00</strong> para evitar desperdício de capital.
+          </div>
+
+          <div class="sandbox-grid" style="margin-top: var(--space-lg);">
+            <div>
+              <div class="team-label">CARGA DE CCS × VOLUME POR FAZENDA (CLIQUE NA TABELA PARA SIMULAR)</div>
+              <div class="chart-box">
+                <canvas id="sandboxChart" aria-label="Gráfico de contribuição de CCS por fazenda"></canvas>
+              </div>
+              <p id="sb-note" style="font-size: 0.8125rem; color: var(--on-surface-variant); margin-top: var(--space-sm);">
+                Dados reais do Tanque TC018 (Março/2026, 11 fazendas), extraídos dos CSVs gerados pelo pipeline. Use os botões ao lado para simular exclusão (Nível 2) ou capacitação em mastite (Nível 3).
+              </p>
+            </div>
+
+            <div class="tier-table-wrap" style="max-height: 410px; overflow-y: auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Fazenda</th>
+                    <th class="num">Vol (L)</th>
+                    <th class="num">CCS</th>
+                    <th>Papel / Simulação</th>
+                  </tr>
+                </thead>
+                <tbody id="sb-farm-rows"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. RESULTADOS CHAVE E VALIDAÇÃO -->
+    <section class="band" id="resultados">
+      <div class="container">
+        <div class="headline-stack">
+          <div class="eyebrow">
+            <i data-lucide="check-circle-2" width="16" height="16" aria-hidden="true"></i>
+            <span>Comprovação de Saída &amp; Validação no Power BI</span>
+          </div>
+          <h2>Caso de controle TC018 e panorama dos 58 tanques comunitários</h2>
+          <p class="lede">
+            A precisão matemática do algoritmo foi auditada contra o gabarito oficial do Tanque TC018 (11 fazendas ao longo de 4 meses) e consolidada em toda a bacia leiteira.
+          </p>
+        </div>
+
+        <!-- Global Metrics -->
+        <div class="bento-4" style="margin-top: 0;">
+          <div class="tile figure">
+            <div class="fig-label">Tanques Auditados</div>
+            <div class="fig-value accent-blue">58</div>
+            <div class="fig-caption">Base completa de tanques comunitários</div>
+          </div>
+          <div class="tile figure">
+            <div class="fig-label">Planos Viáveis (Nível 3)</div>
+            <div class="fig-value accent-emerald">109</div>
+            <div class="fig-caption">Otimizações com subida de faixa</div>
+          </div>
+          <div class="tile figure">
+            <div class="fig-label">Períodos de Inviabilidade</div>
+            <div class="fig-value">118</div>
+            <div class="fig-caption">Blindagem financeira aplicada (R$ 0,00)</div>
+          </div>
+          <div class="tile figure">
+            <div class="fig-label">ROI Médio Global</div>
+            <div class="fig-value accent-emerald">358,8%</div>
+            <div class="fig-caption">Retorno bruto ÷ investimento em capacitação</div>
+          </div>
+        </div>
+
+        <div class="validation-grid">
+          <div class="tile">
+            <div class="team-label">GABARITO OFICIAL VALIDADO · TANQUE TC018</div>
+            <h3>Síntese de Março e Abril/2026 (11 Fazendas)</h3>
+            <div class="tier-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Mês</th>
+                    <th class="num">CCS Ponderado</th>
+                    <th>Faixa</th>
+                    <th>Quem Derruba a Nota</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Março (Mês 3)</td>
+                    <td class="num">418,86 mil</td>
+                    <td><span class="badge badge-c">Faixa C (R$ 0,00/L)</span></td>
+                    <td><strong>2 Fazendas:</strong> F0339 e F0340</td>
+                  </tr>
+                  <tr>
+                    <td>Abril (Mês 4)</td>
+                    <td class="num">372,95 mil</td>
+                    <td><span class="badge badge-b">Faixa B (+R$ 0,06/L)</span></td>
+                    <td><strong>Nenhuma.</strong> F0341 protege o grupo: sem ela, o tanque cairia para a Faixa C (−R$ 8.816/mês)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tc018-highlight">
+              <strong>Destaque de Retorno (TC018):</strong> Aplicando o algoritmo guloso do Nível 3, apenas <strong>1 treinamento</strong> (investimento de R$ 850,00) viabiliza um ganho de <strong>R$ 10.573,32/mês</strong> (março/2026) para o grupo, gerando um <strong>ROI de 1.244%</strong>.
+            </div>
+          </div>
+
+          <div class="tile">
+            <div class="team-label">VIABILIDADE NA BACIA LEITEIRA (58 TANQUES × 4 MESES)</div>
+            <h3>Distribuição dos Planos de Capacitação</h3>
+            <div class="chart-box" style="min-height: 250px; margin-top: var(--space-md);">
+              <canvas id="globalChart" aria-label="Gráfico comparando planos viáveis e períodos de inviabilidade"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Output CSVs for Power BI -->
+        <div class="csv-output-list">
+          <div class="tile">
+            <div class="defect-code">EXPORTAÇÃO CSV #1</div>
+            <h4><code>squad2_tanques_resumo_mensal.csv</code></h4>
+            <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin: var(--space-xs) 0 0;">
+              KPIs mensais por tanque: volume total (L), CCS ponderado, faixa atual, bônus por litro, faturamento bruto e <code>chave_tanque_data</code>.
+            </p>
+          </div>
+          <div class="tile">
+            <div class="defect-code">EXPORTAÇÃO CSV #2</div>
+            <h4><code>squad2_simulacao_leave_one_out.csv</code></h4>
+            <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin: var(--space-xs) 0 0;">
+              Detalhamento fazenda a fazenda: novo CCS sem a propriedade <em>k</em>, mudança de faixa e ganho financeiro em R$ dos remanescentes.
+            </p>
+          </div>
+          <div class="tile">
+            <div class="defect-code">EXPORTAÇÃO CSV #3</div>
+            <h4><code>squad2_plano_treinamento.csv</code></h4>
+            <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin: var(--space-xs) 0 0;">
+              Diagnóstico executivo de capacitação: meta de CCS, fazendas selecionadas pelo algoritmo guloso, custo total e ganho mensal adicional.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. ESTRUTURA DO REPOSITÓRIO GITHUB -->
+    <section class="band alt" id="repositorio">
+      <div class="container">
+        <div class="headline-stack">
+          <div class="eyebrow blue">
+            <i data-lucide="folder-git-2" width="16" height="16" aria-hidden="true"></i>
+            <span>Organização &amp; Deploy via GitHub Pages</span>
+          </div>
+          <h2>Estrutura do Repositório GitHub</h2>
+          <p class="lede">
+            Explore a árvore de diretórios recomendada para manter os links relativos de download funcionando e garantir a modelagem Star Schema (1:*) no Power BI sem ambiguidades.
+          </p>
+        </div>
+
+        <div class="repo-layout">
+          <div class="tree-box" role="listbox" aria-label="Árvore de arquivos do repositório">
+            <button type="button" class="tree-item" role="option" aria-selected="true" onclick="selectTreeItem('root', this)">
+              <i data-lucide="folder-open" width="16" height="16" aria-hidden="true"></i>
+              <span>bacia-leiteira-squad2/</span>
+            </button>
+            <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('index', this)">
+              <i data-lucide="file-text" width="16" height="16" aria-hidden="true"></i>
+              <span>index.html</span>
+            </button>
+            <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('py', this)">
+              <i data-lucide="file-code-2" width="16" height="16" aria-hidden="true"></i>
+              <span>A3-Segunda.py</span>
+            </button>
+            <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('pbix', this)">
+              <i data-lucide="bar-chart-3" width="16" height="16" aria-hidden="true"></i>
+              <span>dashboard_bacia_leiteira.pbix</span>
+            </button>
+            <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('readme', this)">
+              <i data-lucide="book-open" width="16" height="16" aria-hidden="true"></i>
+              <span>README.md</span>
+            </button>
+            <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('base', this)">
+              <i data-lucide="folder" width="16" height="16" aria-hidden="true"></i>
+              <span>base/ (CSVs originais da cooperativa)</span>
+            </button>
+            <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('saida', this)">
+              <i data-lucide="folder" width="16" height="16" aria-hidden="true"></i>
+              <span>saida/ (3 CSVs higienizados 1:*)</span>
+            </button>
+            <button type="button" class="tree-item tree-indent-2" role="option" aria-selected="false" onclick="selectTreeItem('chave', this)">
+              <i data-lucide="key-round" width="16" height="16" aria-hidden="true"></i>
+              <span>chave_tanque_data (ex: TC018_2026-03-01)</span>
+            </button>
+          </div>
+
+          <div class="tile" id="repo-detail-card">
+            <div class="team-label" id="repo-detail-type">DIRETÓRIO RAIZ · GITHUB PAGES</div>
+            <h3 id="repo-detail-title">bacia-leiteira-squad2/</h3>
+            <p id="repo-detail-desc" style="color: var(--on-surface-variant); margin-top: var(--space-sm);">
+              Raiz do repositório no GitHub. Ao publicar com GitHub Pages a partir da branch principal (<code>main</code> / <code>root</code>), a página <code>index.html</code> serve os downloads relativos <code>A3-Segunda.py</code> e <code>dashboard_bacia_leiteira.pbix</code> diretamente para qualquer navegador.
+            </p>
+            <div class="code-box" id="repo-detail-cmd">Configuração GitHub Pages: Settings → Pages → Branch: main (/root)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 9. PITCH DE APRESENTAÇÃO (VÍDEO) -->
+    <section class="band" id="pitch">
+      <div class="container">
+        <div class="headline-stack">
+          <div class="eyebrow">
+            <i data-lucide="video" width="16" height="16" aria-hidden="true"></i>
+            <span>Pitch de Apresentação · Squad 2</span>
+          </div>
+          <h2>Pitch de Apresentação do Projeto</h2>
+          <p class="lede">
+            Assista à apresentação do projeto: do problema de negócio na Bacia Leiteira ao motor analítico em 3 níveis, passando pelo dashboard em Power BI e pelos resultados validados no caso de controle TC018.
+          </p>
+        </div>
+
+        <div class="pitch-wrap">
+          <div class="pitch-frame">
+            <video controls preload="metadata" playsinline aria-label="Pitch de apresentação do projeto Squad 2: Quem Derruba a Nota do Tanque?">
+              <source src="pitch_apresentacao.mp4" type="video/mp4">
+              <div class="pitch-fallback">Seu navegador não conseguiu reproduzir o vídeo.</div>
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 8. RODAPÉ COM CRÉDITOS ACADÊMICOS E REFERÊNCIAS -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>Créditos Acadêmicos</h3>
+          <p>
+            <strong>Centro Universitário UNA – Betim/MG</strong><br>
+            Projeto Integrador A3 · Estruturas de Dados e Análise de Algoritmos · UC HUB (2026)
+          </p>
+          <p>
+            <strong>Squad 2 ("Quem Derruba a Nota do Tanque"):</strong> André Allan Pereira Rezende, Isaque Gabriel Freitas Santiago, Lívia Terezinha Souza e Silva, Luís Gustavo Cunha Oliveira e Philipe Guimarães Pedro dos Santos.<br>
+            <strong>Orientador:</strong> Prof. Ted do Prado Amaral.
+          </p>
+        </div>
+        <div>
+          <h3>Referências &amp; Fontes</h3>
+          <ul>
+            <li>Artigo Técnico A3: <em>Otimização Dinâmica de Qualidade e Faturamento na Bacia Leiteira: Algoritmos de Tratamento de Dados e Simulações em Tanques Comunitários</em> (Autores, 2026).</li>
+            <li>Documentação da Base Operacional: <em>Projeto Integrador — Bacia Leiteira, Dicionário de Dados e Enunciado da Squad 2</em> (UNA Betim, 2026).</li>
+            <li>Modelagem Dimensional Star Schema em Power BI e pipeline em Python 3 (Pandas).</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Squad 2 · Bacia Leiteira · Dados operacionais de 01/03/2026 a 30/06/2026</span>
+        <span>Separador CSV (;) · Codificação UTF-8-SIG · Chave Composta: chave_tanque_data</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Helper to read CSS custom properties so JS charts stay 100% aligned with :root tokens
+    function getToken(name) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    function formatBRL(val) {
+      return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function formatNum(val, decimals) {
+      return val.toLocaleString('pt-BR', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+    }
+
+    // 1. Pain Calculator
+    function updatePainCalc(dailyVol) {
+      const volDay = Number(dailyVol);
+      const volMonth = volDay * 30;
+      const basePrice = 2.45;
+      const revA = volMonth * (basePrice + 0.12);
+      const revD = volMonth * (basePrice - 0.05);
+      const diff = revA - revD;
+
+      const elDisp = document.getElementById('daily-vol-display');
+      const elA = document.getElementById('rev-faixa-a');
+      const elD = document.getElementById('rev-faixa-d');
+      const elDiff = document.getElementById('rev-diff-loss');
+
+      if (elDisp) elDisp.textContent = `${volDay.toLocaleString('pt-BR')} L/dia (${volMonth.toLocaleString('pt-BR')} L/mês)`;
+      if (elA) elA.textContent = formatBRL(revA);
+      if (elD) elD.textContent = formatBRL(revD);
+      if (elDiff) elDiff.textContent = `${formatBRL(diff)} / mês`;
+    }
+
+    // 2. CSV Explorer Data
+    const csvDocs = {
+      fazendas: {
+        order: `ORDEM DE LEITURA #3 · CADASTRO DE PROPRIEDADES`,
+        title: `fazendas.csv — Árvore de Alimentação`,
+        desc: `Mapeia cada fazenda ao respectivo tanque comunitário. Apenas as colunas de chave são mantidas, descartando espécie, área e tipo de ordenha para manter a arquitetura minimalista.`,
+        kept: [`fazenda_id`, `tanque_id`],
+        dropped: [`produtor_id`, `especie`, `certificacao`, `area_hectares`, `n_vacas_lactacao`],
+        snippet: `fazenda_id;tanque_id\nF0339;TC018\nF0340;TC018\nF9999;TC018  # Descartada no Defeito D4`
+      },
+      tanques: {
+        order: `ORDEM DE LEITURA #4 · FILTRO DE RESERVATÓRIOS`,
+        title: `tanques.csv — Isolamento de Comunitários`,
+        desc: `Classifica os 486 reservatórios da bacia leiteira para isolar exclusivamente os 58 tanques do tipo comunitário (prefixo TC###), excluindo tanques individuais (TI####).`,
+        kept: [`tanque_id`, `tipo`],
+        dropped: [`capacidade_litros`, `municipio`],
+        snippet: `tanque_id;tipo\nTC018;comunitario\nTI0104;individual  # Excluído do escopo Squad 2`
+      },
+      analises: {
+        order: `ORDEM DE LEITURA #5 · QUALIDADE BIOLÓGICA`,
+        title: `analises.csv — Monitoramento Mensal de CCS`,
+        desc: `Armazena as análises laboratoriais individuais por fazenda (3.800 registros). Passa pela função normalizar_ccs_milhares() para converter ~16% das linhas registradas em cel_ml para mil_cel_ml.`,
+        kept: [`origem_id`, `data`, `ccs`, `ccs_unidade`],
+        dropped: [`cpp_mil_ufc_ml`, `gordura_pct`, `proteina_pct`, `crioscopia_c`, `esd_pct`],
+        snippet: `origem_id;data;ccs;ccs_unidade\nF0339;2026-03-15;680;mil_cel_ml\nF0340;18/03/2026;540000;cel_ml  # ÷ 1.000 → 540`
+      },
+      coletas: {
+        order: `ORDEM DE LEITURA #6 · LOGÍSTICA DIÁRIA`,
+        title: `coletas.csv — Volume Entregue por Dia`,
+        desc: `Maior tabela da base (38.924 linhas). Passa por extrair_data_primeiro_dia() para eliminar ~160 datas impossíveis (D3) e normalizar_volume_litros() para converter ~380 coletas de KG para Litros (÷ 1,032).`,
+        kept: [`fazenda_id`, `data`, `volume`, `unidade`],
+        dropped: [`carga_id`, `temperatura_c`, `ordem_na_rota`, `condutividade_ms_cm`],
+        snippet: `fazenda_id;data;volume;unidade\nF0339;2026-03-04;825.6;KG  # ÷ 1,032 → 800,00 L\nF0341;31/04/2026;410;L  # Descartada (D3)`
+      },
+      faixas: {
+        order: `ORDEM DE LEITURA #1 · PARÂMETROS DE PREÇO`,
+        title: `faixas_bonificacao.csv — Regras de Bonificação`,
+        desc: `Tabela de parâmetros lida no início da execução para classificar o CCS ponderado sem valores fixos no código (sem hardcoding), definindo limites e bônus de +R$ 0,12/L até -R$ 0,05/L.`,
+        kept: [`faixa`, `ccs_min_mil`, `ccs_max_mil`, `bonus_reais_por_litro`],
+        dropped: [],
+        snippet: `faixa;ccs_min_mil;ccs_max_mil;bonus_reais_por_litro\nA;0;250;0.12\nB;250;400;0.06\nC;400;600;0.00\nD;600;99999;-0.05`
+      },
+      treinamento: {
+        order: `ORDEM DE LEITURA #2 · PARÂMETROS DE CAPACITAÇÃO`,
+        title: `efeito_treinamento.csv — Impacto do Treino em Mastite`,
+        desc: `Define a redução percentual esperada na CCS individual conforme o patamar inicial da fazenda (0%, 12%, 22% ou 30%) e o custo fixo de R$ 850,00 por propriedade treinada no Nível 3.`,
+        kept: [`ccs_min_mil`, `ccs_max_mil`, `reducao_esperada_pct`, `custo_reais`],
+        dropped: [],
+        snippet: `ccs_min_mil;ccs_max_mil;reducao_esperada_pct;custo_reais\n0;250;0;850.00\n250;400;12;850.00\n400;600;22;850.00\n600;99999;30;850.00`
+      }
+    };
+
+    function selectCsvTab(key, btnEl) {
+      const doc = csvDocs[key];
+      if (!doc) return;
+
+      const allBtns = document.querySelectorAll('.csv-tab-btn');
+      allBtns.forEach(function (b) { b.setAttribute('aria-selected', 'false'); });
+      if (btnEl) btnEl.setAttribute('aria-selected', 'true');
+
+      const orderEl = document.getElementById('csv-order-label');
+      const titleEl = document.getElementById('csv-detail-title');
+      const descEl = document.getElementById('csv-detail-desc');
+      const chipsEl = document.getElementById('csv-detail-chips');
+      const snipEl = document.getElementById('csv-detail-snippet');
+
+      if (orderEl) orderEl.textContent = doc.order;
+      if (titleEl) titleEl.textContent = doc.title;
+      if (descEl) descEl.textContent = doc.desc;
+      if (snipEl) snipEl.textContent = doc.snippet;
+
+      if (chipsEl) {
+        let html = '';
+        doc.kept.forEach(function (c) {
+          html += `<span class="chip">${c}</span>`;
+        });
+        doc.dropped.forEach(function (c) {
+          html += `<span class="chip muted" title="Descartada como ruído">${c}</span>`;
+        });
+        chipsEl.innerHTML = html;
+      }
+    }
+
+    // 3. D5 Error Simulator
+    function toggleD5Mode(isClean) {
+      const btnClean = document.getElementById('btn-d5-clean');
+      const btnRaw = document.getElementById('btn-d5-raw');
+      const textEl = document.getElementById('d5-sim-text');
+      const badgeEl = document.getElementById('d5-result-badge');
+
+      if (btnClean) btnClean.setAttribute('aria-pressed', isClean ? 'true' : 'false');
+      if (btnRaw) btnRaw.setAttribute('aria-pressed', !isClean ? 'true' : 'false');
+
+      if (isClean) {
+        if (textEl) textEl.innerHTML = `Com a conversão ativa, uma amostra de <strong>250.000 cel/ml</strong> entra corretamente como <strong>250 mil cél/ml</strong>. O tanque permanece na Faixa A (+R$ 0,12/L).`;
+        if (badgeEl) badgeEl.innerHTML = `<span class="badge badge-a">CCS Tanque: 235 mil cél/ml · Faixa A (+R$ 0,12/L)</span>`;
+      } else {
+        if (textEl) textEl.innerHTML = `Sem dividir <code>cel_ml</code> por 1.000, o valor <strong>250.000</strong> entra na média ponderada como se fosse 250 milhões de células/ml, derrubando injustamente o tanque da Faixa A para a Faixa D.`;
+        if (badgeEl) badgeEl.innerHTML = `<span class="badge badge-d">CCS Tanque: 28.450 mil cél/ml · Faixa D (-R$ 0,05/L)</span>`;
+      }
+    }
+
+    // 4. Interactive 3-Level Tank Sandbox
+    const sandboxPresets = {
+      tc018_mar: {
+        id: `tc018_mar`,
+        note: `Dados reais do TC018 — Março/2026 (11 fazendas, CCS ponderado 418,86 mil cél/ml, Faixa C). F0339 e F0340 derrubam a nota; treinar apenas F0339 leva o tanque à Faixa B (385,97 mil), com ganho de R$ 10.573,32/mês e ROI de 1.244%.`,
+        isLimitCase: false,
+        farms: [
+          { id: `F0332`, vol: 19376, ccs: 298 },
+          { id: `F0333`, vol: 7172, ccs: 698 },
+          { id: `F0334`, vol: 7928, ccs: 320 },
+          { id: `F0335`, vol: 14049, ccs: 408 },
+          { id: `F0336`, vol: 15193, ccs: 161 },
+          { id: `F0337`, vol: 13518, ccs: 117 },
+          { id: `F0338`, vol: 20383, ccs: 556 },
+          { id: `F0339`, vol: 22919, ccs: 843 },
+          { id: `F0340`, vol: 12341, ccs: 908 },
+          { id: `F0341`, vol: 25476.97, ccs: 77 },
+          { id: `F0342`, vol: 17866, ccs: 387 }
+        ]
+      },
+      tc018_abr: {
+        id: `tc018_abr`,
+        note: `Dados reais do TC018 — Abril/2026 (11 fazendas, CCS ponderado 372,95 mil cél/ml, Faixa B). Ninguém derruba a nota: F0341 (CCS 149) protege o grupo — sem ela o tanque cairia para a Faixa C (−R$ 8.816,22/mês).`,
+        isLimitCase: false,
+        farms: [
+          { id: `F0332`, vol: 17250, ccs: 224 },
+          { id: `F0333`, vol: 7073, ccs: 868 },
+          { id: `F0334`, vol: 7742, ccs: 346 },
+          { id: `F0335`, vol: 13833, ccs: 360 },
+          { id: `F0336`, vol: 15301, ccs: 184 },
+          { id: `F0337`, vol: 13292, ccs: 132 },
+          { id: `F0338`, vol: 20647, ccs: 503 },
+          { id: `F0339`, vol: 23342, ccs: 498 },
+          { id: `F0340`, vol: 11702, ccs: 847 },
+          { id: `F0341`, vol: 22471, ccs: 149 },
+          { id: `F0342`, vol: 16754.95, ccs: 339 }
+        ]
+      },
+      limite: {
+        id: `limite`,
+        note: `Dados reais do TC001 — Maio/2026 (8 fazendas, CCS ponderado 537,39 mil cél/ml, Faixa C). Caso limite: mesmo treinando as 8 fazendas, o CCS cairia apenas para 406,13 mil, ainda acima do teto de 400 mil da Faixa B — o algoritmo sugere 0 treinamentos (R$ 0,00).`,
+        isLimitCase: true,
+        farms: [
+          { id: `F0139`, vol: 16559.04, ccs: 331 },
+          { id: `F0140`, vol: 17134, ccs: 148 },
+          { id: `F0141`, vol: 25343, ccs: 534 },
+          { id: `F0142`, vol: 18107, ccs: 343 },
+          { id: `F0143`, vol: 19605, ccs: 471 },
+          { id: `F0144`, vol: 20981, ccs: 901 },
+          { id: `F0145`, vol: 19162, ccs: 611 },
+          { id: `F0146`, vol: 19555, ccs: 842 }
+        ]
+      }
+    };
+
+    let currentPresetKey = 'tc018_mar';
+    let sandboxState = { removed: {}, trained: {} };
+    let sandboxChartInst = null;
+
+    function getTier(ccs) {
+      if (ccs < 250) return { name: `Faixa A`, bonus: 0.12, badge: `badge-a` };
+      if (ccs < 400) return { name: `Faixa B`, bonus: 0.06, badge: `badge-b` };
+      if (ccs < 600) return { name: `Faixa C`, bonus: 0.00, badge: `badge-c` };
+      return { name: `Faixa D`, bonus: -0.05, badge: `badge-d` };
+    }
+
+    function getReductionPct(ccs) {
+      if (ccs < 250) return 0;
+      if (ccs < 400) return 0.12;
+      if (ccs < 600) return 0.22;
+      return 0.30;
+    }
+
+    function loadSandboxPreset(key) {
+      currentPresetKey = key;
+      sandboxState = { removed: {}, trained: {} };
+
+      const presetButtons = {
+        tc018_mar: document.getElementById('preset-tc018-mar'),
+        tc018_abr: document.getElementById('preset-tc018-abr'),
+        limite: document.getElementById('preset-limite')
+      };
+      Object.keys(presetButtons).forEach(function (k) {
+        if (presetButtons[k]) {
+          presetButtons[k].setAttribute('aria-pressed', k === key ? 'true' : 'false');
+        }
+      });
+
+      const noteEl = document.getElementById('sb-note');
+      if (noteEl && sandboxPresets[key]) {
+        noteEl.textContent = sandboxPresets[key].note;
+      }
+      renderSandbox();
+    }
+
+    function toggleFarmRemove(farmId) {
+      sandboxState.removed[farmId] = !sandboxState.removed[farmId];
+      if (sandboxState.removed[farmId]) sandboxState.trained[farmId] = false;
+      renderSandbox();
+    }
+
+    function toggleFarmTrain(farmId) {
+      sandboxState.trained[farmId] = !sandboxState.trained[farmId];
+      if (sandboxState.trained[farmId]) sandboxState.removed[farmId] = false;
+      renderSandbox();
+    }
+
+    function computeTankStats(farms, removedMap, trainedMap) {
+      let totalVol = 0;
+      let totalWeighted = 0;
+      farms.forEach(function (f) {
+        if (removedMap[f.id]) return;
+        const pct = trainedMap[f.id] ? getReductionPct(f.ccs) : 0;
+        const effCcs = f.ccs * (1 - pct);
+        totalVol += f.vol;
+        totalWeighted += f.vol * effCcs;
+      });
+      const ccs = totalVol > 0 ? totalWeighted / totalVol : 0;
+      const tier = getTier(ccs);
+      return { ccs: ccs, vol: totalVol, tier: tier };
+    }
+
+    function renderSandbox() {
+      const preset = sandboxPresets[currentPresetKey];
+      if (!preset) return;
+
+      const baseStats = computeTankStats(preset.farms, {}, {});
+      const curStats = computeTankStats(preset.farms, sandboxState.removed, sandboxState.trained);
+
+      // Check if 100% training can improve tier from baseline
+      const allTrainedMap = {};
+      preset.farms.forEach(function (f) { allTrainedMap[f.id] = true; });
+      const maxTrainStats = computeTankStats(preset.farms, {}, allTrainedMap);
+      const isInfeasible = maxTrainStats.tier.name === baseStats.tier.name && baseStats.tier.name !== 'Faixa A';
+
+      let trainedCount = 0;
+      Object.keys(sandboxState.trained).forEach(function (id) {
+        if (sandboxState.trained[id]) trainedCount++;
+      });
+
+      const shieldEl = document.getElementById('sb-shield-alert');
+      let effectiveCost = trainedCount * 850;
+      if (isInfeasible && (trainedCount > 0 || preset.isLimitCase)) {
+        if (shieldEl) shieldEl.classList.add('visible');
+        if (preset.isLimitCase && trainedCount === 0) effectiveCost = 0;
+      } else {
+        if (shieldEl) shieldEl.classList.remove('visible');
+      }
+
+      const revenueDelta = curStats.vol * (curStats.tier.bonus - baseStats.tier.bonus);
+
+      const elCcs = document.getElementById('sb-ccs');
+      const elTier = document.getElementById('sb-tier');
+      const elCost = document.getElementById('sb-cost');
+      const elDelta = document.getElementById('sb-delta');
+
+      if (elCcs) elCcs.textContent = `${formatNum(curStats.ccs, 2)} mil`;
+      if (elTier) {
+        const sign = curStats.tier.bonus >= 0 ? `+` : ``;
+        elTier.textContent = `${curStats.tier.name} (${sign}${formatBRL(curStats.tier.bonus)})`;
+      }
+      if (elCost) elCost.textContent = formatBRL(effectiveCost);
+      if (elDelta) {
+        const prefix = revenueDelta > 0 ? `+` : ``;
+        elDelta.textContent = `${prefix}${formatBRL(revenueDelta)} / mês`;
+        elDelta.style.color = revenueDelta > 0 ? getToken('--secondary') : (revenueDelta < 0 ? getToken('--error') : getToken('--on-surface'));
+      }
+
+      // Render table rows with Leave-One-Out classification against baseline
+      const tbody = document.getElementById('sb-farm-rows');
+      if (tbody) {
+        let rowsHtml = '';
+        preset.farms.forEach(function (f) {
+          const isRem = !!sandboxState.removed[f.id];
+          const isTr = !!sandboxState.trained[f.id];
+          const pct = isTr ? getReductionPct(f.ccs) : 0;
+          const displayCcs = f.ccs * (1 - pct);
+
+          // Leave-one-out vs baseline
+          const looMap = {};
+          looMap[f.id] = true;
+          const looStats = computeTankStats(preset.farms, looMap, {});
+          let roleLabel = `<span class="csv-meta">Neutro</span>`;
+          if (looStats.tier.bonus > baseStats.tier.bonus) {
+            roleLabel = `<span class="badge badge-d">Derruba a Nota</span>`;
+          } else if (looStats.tier.bonus < baseStats.tier.bonus) {
+            roleLabel = `<span class="badge badge-a">Protege o Grupo</span>`;
+          }
+
+          rowsHtml += `
+            <tr style="${isRem ? 'opacity: 0.45;' : ''}">
+              <td><strong>${f.id}</strong><br>${roleLabel}</td>
+              <td class="num">${f.vol.toLocaleString('pt-BR')}</td>
+              <td class="num">${formatNum(displayCcs, 0)}</td>
+              <td>
+                <div class="action-cell">
+                  <button type="button" class="farm-action-btn remove ${isRem ? 'active' : ''}" onclick="toggleFarmRemove('${f.id}')">${isRem ? 'Restaurar' : 'Remover'}</button>
+                  <button type="button" class="farm-action-btn train ${isTr ? 'active' : ''}" onclick="toggleFarmTrain('${f.id}')">${isTr ? 'Treinada' : 'Treinar'}</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        });
+        tbody.innerHTML = rowsHtml;
+      }
+
+      // Update Chart.js
+      if (typeof Chart !== 'undefined') {
+        const canvas = document.getElementById('sandboxChart');
+        if (canvas) {
+          const labels = preset.farms.map(function (f) { return f.id; });
+          const values = preset.farms.map(function (f) {
+            if (sandboxState.removed[f.id]) return 0;
+            const pct = sandboxState.trained[f.id] ? getReductionPct(f.ccs) : 0;
+            return Math.round((f.vol * f.ccs * (1 - pct)) / 1000);
+          });
+          const colors = preset.farms.map(function (f) {
+            if (sandboxState.removed[f.id]) return getToken('--outline-variant');
+            if (sandboxState.trained[f.id]) return getToken('--data-2');
+            if (f.ccs >= 600) return getToken('--data-4');
+            if (f.ccs >= 400) return getToken('--data-3');
+            return getToken('--data-1');
+          });
+
+          if (sandboxChartInst) {
+            sandboxChartInst.data.labels = labels;
+            sandboxChartInst.data.datasets[0].data = values;
+            sandboxChartInst.data.datasets[0].backgroundColor = colors;
+            sandboxChartInst.update();
+          } else {
+            sandboxChartInst = new Chart(canvas.getContext('2d'), {
+              type: 'bar',
+              data: {
+                labels: labels,
+                datasets: [{
+                  label: 'Carga (CCS × mil L)',
+                  data: values,
+                  backgroundColor: colors,
+                  borderRadius: 6
+                }]
+              },
+              options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: { display: false },
+                  tooltip: {
+                    callbacks: {
+                      label: function (ctx) {
+                        return `Carga: ${ctx.parsed.x.toLocaleString('pt-BR')} mil cél·L`;
+                      }
+                    }
+                  }
+                },
+                scales: {
+                  x: {
+                    grid: { color: getToken('--outline-variant') },
+                    ticks: { color: getToken('--on-surface-variant'), font: { family: 'IBM Plex Mono' } }
+                  },
+                  y: {
+                    grid: { display: false },
+                    ticks: { color: getToken('--on-surface'), font: { family: 'IBM Plex Mono', weight: '600' } }
+                  }
+                }
+              }
+            });
+          }
+        }
+      }
+    }
+
+    // 5. Global 58 Tanks Chart
+    function initGlobalChart() {
+      if (typeof Chart === 'undefined') return;
+      const canvas = document.getElementById('globalChart');
+      if (!canvas) return;
+      new Chart(canvas.getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: ['Planos Viáveis (ROI 358,8%)', 'Casos Limite Blindados (R$ 0,00)'],
+          datasets: [{
+            label: 'Períodos Analisados (Tanque × Mês)',
+            data: [109, 118],
+            backgroundColor: [getToken('--data-2'), getToken('--data-context')],
+            borderRadius: 8,
+            barThickness: 48
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: getToken('--outline-variant') },
+              ticks: { color: getToken('--on-surface-variant'), font: { family: 'IBM Plex Mono' } }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: getToken('--on-surface'), font: { family: 'Inter', weight: '600' } }
+            }
+          }
+        }
+      });
+    }
+
+    // 6. Repository Explorer
+    const repoDocs = {
+      root: {
+        type: `DIRETÓRIO RAIZ · GITHUB PAGES`,
+        title: `bacia-leiteira-squad2/`,
+        desc: `Raiz do repositório no GitHub. Ao publicar com GitHub Pages a partir da branch principal (main / root), a página index.html serve os downloads relativos A3-Segunda.py e dashboard_bacia_leiteira.pbix diretamente para qualquer navegador.`,
+        cmd: `GitHub Pages: Settings → Pages → Branch: main (/root)`
+      },
+      index: {
+        type: `ARTEFATO WEB · LANDING PAGE`,
+        title: `index.html`,
+        desc: `Esta página interativa de apresentação do projeto. Deve permanecer na raiz do repositório para ser servida automaticamente pelo GitHub Pages e apontar via link relativo para os entregáveis.`,
+        cmd: `href="A3-Segunda.py"  |  href="dashboard_bacia_leiteira.pbix"`
+      },
+      py: {
+        type: `MOTOR ANALÍTICO · PYTHON 3`,
+        title: `A3-Segunda.py`,
+        desc: `Script principal contendo carregar_csv_resiliente(), sanitização dos 5 defeitos (D1–D5), cálculo de média ponderada (Nível 1), simulação contrafactual Leave-One-Out (Nível 2) e algoritmo guloso com blindagem de casos limite (Nível 3).`,
+        cmd: `python A3-Segunda.py  # Executa executar_pipeline_squad2()`
+      },
+      pbix: {
+        type: `PAINEL EXECUTIVO · POWER BI`,
+        title: `dashboard_bacia_leiteira.pbix`,
+        desc: `Dashboard interativo conectado aos 3 arquivos CSV exportados na camada dimensional. Utiliza relacionamentos 1:* ancorados na chave composta chave_tanque_data sem ambiguidades.`,
+        cmd: `Relacionamento Star Schema: chave_tanque_data (1:*)`
+      },
+      readme: {
+        type: `DOCUMENTAÇÃO · MARKDOWN`,
+        title: `README.md`,
+        desc: `Guia técnico com instruções de execução do ambiente Python, regras de negócio da cooperativa (Preço base R$ 2,45/L, faixas A–D) e validação do Tanque TC018.`,
+        cmd: `Documentação do projeto integrador · UNA Betim`
+      },
+      base: {
+        type: `CAMADA DE ENTRADA · 18 CSVs`,
+        title: `base/`,
+        desc: `Armazena os arquivos operacionais originais da cooperativa (01/03/2026 a 30/06/2026), dos quais o pipeline consome exclusivamente os 6 arquivos necessários à Squad 2 (separador ';', UTF-8).`,
+        cmd: `base/fazendas.csv · tanques.csv · analises.csv · coletas.csv`
+      },
+      saida: {
+        type: `CAMADA DIMENSIONAL · 3 CSVs`,
+        title: `saida/`,
+        desc: `Recebe os três arquivos gerados dinamicamente pelo Python (separador ';', encoding utf-8-sig): squad2_tanques_resumo_mensal.csv, squad2_simulacao_leave_one_out.csv e squad2_plano_treinamento.csv.`,
+        cmd: `Exportação dinâmica sem nomes ou valores hardcoded`
+      },
+      chave: {
+        type: `INTEGRIDADE RELACIONAL · POWER BI`,
+        title: `chave_tanque_data`,
+        desc: `Chave composta exclusiva gerada para cada combinação tanque + mês normalizado no primeiro dia (ex: TC018_2026-03-01), garantindo ordenação cronológica nativa e filtragem sincronizada no dashboard.`,
+        cmd: `Formato padrão: <TANQUE_ID>_<YYYY-MM-01>`
+      }
+    };
+
+    function selectTreeItem(key, btnEl) {
+      const doc = repoDocs[key];
+      if (!doc) return;
+
+      const items = document.querySelectorAll('.tree-item');
+      items.forEach(function (item) { item.setAttribute('aria-selected', 'false'); });
+      if (btnEl) btnEl.setAttribute('aria-selected', 'true');
+
+      const tEl = document.getElementById('repo-detail-type');
+      const hEl = document.getElementById('repo-detail-title');
+      const dEl = document.getElementById('repo-detail-desc');
+      const cEl = document.getElementById('repo-detail-cmd');
+
+      if (tEl) tEl.textContent = doc.type;
+      if (hEl) hEl.textContent = doc.title;
+      if (dEl) dEl.textContent = doc.desc;
+      if (cEl) cEl.textContent = doc.cmd;
+    }
+
+    // Boot
+    window.addEventListener('DOMContentLoaded', function () {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+      updatePainCalc(800);
+      selectCsvTab('fazendas', document.querySelector('.csv-tab-btn'));
+      loadSandboxPreset('tc018_mar');
+      initGlobalChart();
+    });
+  </script>
+</body>
+</html>
