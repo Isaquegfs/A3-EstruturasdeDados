@@ -120,9 +120,9 @@
 
     .container {
       width: 100%;
-      max-width: 1160px;
+      max-width: 1560px;
       margin: 0 auto;
-      padding-inline: var(--space-lg);
+      padding-inline: clamp(1rem, 3vw, 2.75rem);
     }
 
     .container * { min-width: 0; }
@@ -775,7 +775,7 @@
 
     .sandbox-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
       gap: var(--space-xl);
       align-items: start;
     }
@@ -830,7 +830,7 @@
     /* Section 5: Validation & Global Results */
     .validation-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
       gap: var(--space-lg);
       margin-top: var(--space-xl);
     }
@@ -844,10 +844,11 @@
     }
     .csv-output-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
       gap: var(--space-md);
       margin-top: var(--space-xl);
     }
+    .csv-output-list h4 code { overflow-wrap: anywhere; word-break: break-all; font-size: 0.95rem; }
 
     /* Section 6: GitHub Repository Tree */
     .repo-layout {
@@ -979,6 +980,41 @@
       background: #000;
     }
     .pitch-fallback { padding: var(--space-lg); color: var(--background); }
+    /* Simulador: guia, legendas e resultado */
+    .sb-steps { list-style: none; margin: 0 0 var(--space-lg); padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: var(--space-md); }
+    .sb-steps li { display: flex; gap: var(--space-sm); align-items: flex-start; background: var(--surface-container-low); border-radius: var(--rounded-md); padding: var(--space-md); font-size: 0.9375rem; line-height: 1.45; }
+    .sb-step-n { flex: none; width: 1.75rem; height: 1.75rem; border-radius: 50%; background: var(--primary); color: var(--on-primary); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; }
+    .sb-steps strong { display: block; }
+    .sb-steps span.sb-step-txt { color: var(--on-surface-variant); }
+    .sb-presets { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm) var(--space-md); margin-bottom: var(--space-lg); }
+    .sb-presets-label { font-weight: 600; font-size: 0.9375rem; }
+    .preset-btn small { display: block; font-weight: 400; font-size: 0.75rem; opacity: 0.85; }
+    .preset-btn { text-align: left; padding-block: 0.4rem; }
+    .kpi-tile-sub { font-size: 0.8125rem; color: var(--on-surface-variant); margin-top: var(--space-xs); }
+    .kpi-tile-label { font-size: 0.8125rem; }
+    .sb-summary { background: var(--surface-container-low); border-left: 4px solid var(--primary); border-radius: var(--rounded-md); padding: var(--space-md); margin-bottom: var(--space-md); font-size: 1rem; line-height: 1.55; }
+    .sb-summary p { margin: 0 0 var(--space-xs); }
+    .sb-summary p:last-child { margin-bottom: 0; }
+    .sb-panel-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm); }
+    .sb-panel-head h4 { margin: 0; font-size: 1.0625rem; }
+    .sb-reset { border: 1px solid var(--outline-variant); background: transparent; color: var(--on-surface); border-radius: var(--rounded-full); padding: 0.35rem 0.9rem; font-weight: 600; font-size: 0.8125rem; cursor: pointer; min-height: 36px; }
+    .sb-reset:hover { background: var(--surface-container); }
+    .sb-table-scroll { max-height: 560px; overflow-y: auto; overflow-x: auto; }
+    .sb-table td, .sb-table th { padding: var(--space-sm); }
+    .sb-table th small { display: block; font-weight: 400; color: var(--on-surface-variant); }
+    .sb-row-removed td { opacity: 0.45; }
+    .sb-row-removed td:last-child { opacity: 1; }
+    .sb-hint { display: block; font-size: 0.75rem; color: var(--on-surface-variant); margin-top: 2px; }
+    .sb-legend { display: grid; gap: var(--space-md); margin-top: var(--space-md); }
+    .sb-legend h5 { margin: 0 0 var(--space-xs); font-size: 0.875rem; }
+    .sb-legend ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 0.8125rem; color: var(--on-surface-variant); }
+    .sb-legend li { display: flex; gap: 8px; align-items: center; }
+    .sb-swatch { flex: none; width: 14px; height: 14px; border-radius: 4px; }
+    .sb-legend-box { background: var(--surface-container-low); border-radius: var(--rounded-md); padding: var(--space-md); }
+    .farm-action-btn { white-space: nowrap; }
+    .sb-table .action-cell { flex-wrap: nowrap; }
+    @media (max-width: 640px) { .sb-table-scroll { max-height: none; } }
+    @media (max-width: 1100px) { .sandbox-grid, .validation-grid { grid-template-columns: minmax(0, 1fr); } }
   </style>
 </head>
 <body>
@@ -1344,59 +1380,113 @@
               <div class="team-label">SIMULADOR INTERATIVO DOS 3 NÍVEIS</div>
               <h3>Teste o Leave-One-Out e o Algoritmo Guloso na prática</h3>
             </div>
+          </div>
+
+          <ol class="sb-steps">
+            <li><span class="sb-step-n">1</span><div><strong>Escolha o tanque e o mês</strong><span class="sb-step-txt">São dados reais, tirados dos CSVs gerados pelo pipeline.</span></div></li>
+            <li><span class="sb-step-n">2</span><div><strong>Simule em cada fazenda</strong><span class="sb-step-txt"><b>Remover</b> mostra o tanque sem ela (Nível 2). <b>Treinar</b> reduz o CCS dela contra mastite (Nível 3, R$ 850 por fazenda).</span></div></li>
+            <li><span class="sb-step-n">3</span><div><strong>Leia o resultado</strong><span class="sb-step-txt">Os cartões e a frase abaixo mostram o CCS, a faixa e o ganho de receita da sua simulação.</span></div></li>
+          </ol>
+
+          <div class="sb-presets">
+            <span class="sb-presets-label">Cenário:</span>
             <div class="preset-group" role="group" aria-label="Cenários pré-carregados">
-              <button type="button" class="preset-btn" id="preset-tc018-mar" aria-pressed="true" onclick="loadSandboxPreset('tc018_mar')">TC018 · Março (Faixa C)</button>
-              <button type="button" class="preset-btn" id="preset-tc018-abr" aria-pressed="false" onclick="loadSandboxPreset('tc018_abr')">TC018 · Abril (Faixa B)</button>
-              <button type="button" class="preset-btn" id="preset-limite" aria-pressed="false" onclick="loadSandboxPreset('limite')">Caso Limite · TC001 Maio (Blindagem)</button>
+              <button type="button" class="preset-btn" id="preset-tc018-mar" aria-pressed="true" onclick="loadSandboxPreset('tc018_mar')">TC018 · Março<small>Faixa C · 11 fazendas</small></button>
+              <button type="button" class="preset-btn" id="preset-tc018-abr" aria-pressed="false" onclick="loadSandboxPreset('tc018_abr')">TC018 · Abril<small>Faixa B · 11 fazendas</small></button>
+              <button type="button" class="preset-btn" id="preset-limite" aria-pressed="false" onclick="loadSandboxPreset('limite')">TC001 · Maio (caso limite)<small>Faixa C · 8 fazendas · blindagem</small></button>
             </div>
           </div>
 
           <div class="sandbox-kpis">
             <div class="kpi-tile">
-              <div class="kpi-tile-label">CCS PONDERADO DO TANQUE</div>
+              <div class="kpi-tile-label">CCS do tanque (mil cél/ml)</div>
               <div class="kpi-tile-value" id="sb-ccs">418,86 mil</div>
+              <div class="kpi-tile-sub" id="sb-ccs-sub"></div>
             </div>
             <div class="kpi-tile">
-              <div class="kpi-tile-label">FAIXA &amp; BÔNUS / LITRO</div>
+              <div class="kpi-tile-label">Faixa e bônus por litro</div>
               <div class="kpi-tile-value" id="sb-tier">Faixa C (R$ 0,00)</div>
+              <div class="kpi-tile-sub" id="sb-tier-sub"></div>
             </div>
             <div class="kpi-tile">
-              <div class="kpi-tile-label">INVESTIMENTO EM TREINO</div>
+              <div class="kpi-tile-label">Custo do treinamento</div>
               <div class="kpi-tile-value" id="sb-cost">R$ 0,00</div>
+              <div class="kpi-tile-sub" id="sb-cost-sub"></div>
             </div>
             <div class="kpi-tile">
-              <div class="kpi-tile-label">VARIAÇÃO NA RECEITA DO GRUPO</div>
+              <div class="kpi-tile-label">Variação na receita por mês</div>
               <div class="kpi-tile-value" id="sb-delta" style="color: var(--secondary);">R$ 0,00 / mês</div>
+              <div class="kpi-tile-sub" id="sb-delta-sub">Considera só as fazendas que ficam no tanque.</div>
             </div>
           </div>
 
+          <div class="sb-summary" id="sb-summary" role="status" aria-live="polite"></div>
+
           <div id="sb-shield-alert" class="shield-banner">
-            <strong>Blindagem Financeira Ativada (Caso Limite):</strong> Mesmo aplicando treinamento em 100% das propriedades deste tanque, o CCS ponderado permanece acima do teto da faixa superior (400 mil cél/ml). O algoritmo sugere <strong>0 treinamentos</strong> e mantém o custo em <strong>R$ 0,00</strong> para evitar desperdício de capital.
+            <strong>Blindagem financeira ativada (caso limite):</strong> mesmo treinando 100% das fazendas deste tanque, o CCS ponderado continua acima do teto da faixa superior. O algoritmo sugere <strong>0 treinamentos</strong> e mantém o custo em <strong>R$ 0,00</strong>, para não desperdiçar capital.
           </div>
 
           <div class="sandbox-grid" style="margin-top: var(--space-lg);">
             <div>
-              <div class="team-label">CARGA DE CCS × VOLUME POR FAZENDA (CLIQUE NA TABELA PARA SIMULAR)</div>
+              <div class="sb-panel-head">
+                <h4>Fazendas do tanque: clique para simular</h4>
+                <button type="button" class="sb-reset" onclick="resetSandbox()">Limpar simulação</button>
+              </div>
+              <div class="tier-table-wrap sb-table-scroll">
+                <table class="sb-table">
+                  <thead>
+                    <tr>
+                      <th>Fazenda</th>
+                      <th class="num">Volume<small>litros</small></th>
+                      <th class="num">Peso<small>% do tanque</small></th>
+                      <th class="num">CCS<small>mil cél/ml</small></th>
+                      <th>Papel no tanque</th>
+                      <th>Simular</th>
+                    </tr>
+                  </thead>
+                  <tbody id="sb-farm-rows"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div>
+              <div class="sb-panel-head"><h4>Quanto cada fazenda pesa na média</h4></div>
               <div class="chart-box">
                 <canvas id="sandboxChart" aria-label="Gráfico de contribuição de CCS por fazenda"></canvas>
               </div>
               <p id="sb-note" style="font-size: 0.8125rem; color: var(--on-surface-variant); margin-top: var(--space-sm);">
-                Dados reais do Tanque TC018 (Março/2026, 11 fazendas), extraídos dos CSVs gerados pelo pipeline. Use os botões ao lado para simular exclusão (Nível 2) ou capacitação em mastite (Nível 3).
+                Dados reais do Tanque TC018 (Março/2026, 11 fazendas), extraídos dos CSVs gerados pelo pipeline.
               </p>
-            </div>
 
-            <div class="tier-table-wrap" style="max-height: 410px; overflow-y: auto;">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Fazenda</th>
-                    <th class="num">Vol (L)</th>
-                    <th class="num">CCS</th>
-                    <th>Papel / Simulação</th>
-                  </tr>
-                </thead>
-                <tbody id="sb-farm-rows"></tbody>
-              </table>
+              <div class="sb-legend">
+                <div class="sb-legend-box">
+                  <h5>Cores das barras (carga = CCS × volume)</h5>
+                  <ul>
+                    <li><span class="sb-swatch" style="background: var(--data-1)"></span>CCS abaixo de 400: dentro do limite</li>
+                    <li><span class="sb-swatch" style="background: var(--data-3)"></span>CCS de 400 a 599: puxa a média para cima</li>
+                    <li><span class="sb-swatch" style="background: var(--data-4)"></span>CCS de 600 ou mais: pior carga</li>
+                    <li><span class="sb-swatch" style="background: var(--data-2)"></span>Fazenda treinada (CCS reduzido)</li>
+                    <li><span class="sb-swatch" style="background: var(--outline-variant)"></span>Fazenda removida da simulação</li>
+                  </ul>
+                </div>
+                <div class="sb-legend-box">
+                  <h5>Papel no tanque (efeito de tirar a fazenda)</h5>
+                  <ul>
+                    <li><span class="badge badge-d">Derruba a Nota</span>sem ela, o tanque sobe de faixa</li>
+                    <li><span class="badge badge-a">Protege o Grupo</span>sem ela, o tanque cai de faixa</li>
+                    <li><span class="csv-meta">Neutro</span>sem ela, a faixa não muda</li>
+                  </ul>
+                </div>
+                <div class="sb-legend-box">
+                  <h5>Faixas de bonificação (mil cél/ml)</h5>
+                  <ul>
+                    <li><span class="badge badge-a">Faixa A</span>abaixo de 250: +R$ 0,12/L</li>
+                    <li><span class="badge badge-b">Faixa B</span>250 a 399: +R$ 0,06/L</li>
+                    <li><span class="badge badge-c">Faixa C</span>400 a 599: R$ 0,00/L</li>
+                    <li><span class="badge badge-d">Faixa D</span>600 ou mais: −R$ 0,05/L</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1522,7 +1612,7 @@
           </div>
           <h2>Estrutura do Repositório GitHub</h2>
           <p class="lede">
-            Explore a árvore de diretórios recomendada para manter os links relativos de download funcionando e garantir a modelagem Star Schema (1:*) no Power BI sem ambiguidades.
+            Veja como o repositório do projeto está organizado e clique em cada arquivo para entender o que ele faz e como se conecta aos demais.
           </p>
         </div>
 
@@ -1530,45 +1620,65 @@
           <div class="tree-box" role="listbox" aria-label="Árvore de arquivos do repositório">
             <button type="button" class="tree-item" role="option" aria-selected="true" onclick="selectTreeItem('root', this)">
               <i data-lucide="folder-open" width="16" height="16" aria-hidden="true"></i>
-              <span>bacia-leiteira-squad2/</span>
+              <span>A3-EstruturasdeDados/</span>
             </button>
-            <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('index', this)">
-              <i data-lucide="file-text" width="16" height="16" aria-hidden="true"></i>
-              <span>index.html</span>
+            <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('data', this)">
+              <i data-lucide="folder" width="16" height="16" aria-hidden="true"></i>
+              <span>data/</span>
+            </button>
+            <button type="button" class="tree-item tree-indent-2" role="option" aria-selected="false" onclick="selectTreeItem('fazendas', this)">
+              <i data-lucide="file-spreadsheet" width="16" height="16" aria-hidden="true"></i>
+              <span>fazendas.csv</span>
+            </button>
+            <button type="button" class="tree-item tree-indent-2" role="option" aria-selected="false" onclick="selectTreeItem('tanques', this)">
+              <i data-lucide="file-spreadsheet" width="16" height="16" aria-hidden="true"></i>
+              <span>tanques.csv</span>
+            </button>
+            <button type="button" class="tree-item tree-indent-2" role="option" aria-selected="false" onclick="selectTreeItem('analises', this)">
+              <i data-lucide="file-spreadsheet" width="16" height="16" aria-hidden="true"></i>
+              <span>analises.csv</span>
+            </button>
+            <button type="button" class="tree-item tree-indent-2" role="option" aria-selected="false" onclick="selectTreeItem('coletas', this)">
+              <i data-lucide="file-spreadsheet" width="16" height="16" aria-hidden="true"></i>
+              <span>coletas.csv</span>
+            </button>
+            <button type="button" class="tree-item tree-indent-2" role="option" aria-selected="false" onclick="selectTreeItem('faixas', this)">
+              <i data-lucide="file-spreadsheet" width="16" height="16" aria-hidden="true"></i>
+              <span>faixas_bonificacao.csv</span>
+            </button>
+            <button type="button" class="tree-item tree-indent-2" role="option" aria-selected="false" onclick="selectTreeItem('efeito', this)">
+              <i data-lucide="file-spreadsheet" width="16" height="16" aria-hidden="true"></i>
+              <span>efeito_treinamento.csv</span>
             </button>
             <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('py', this)">
               <i data-lucide="file-code-2" width="16" height="16" aria-hidden="true"></i>
               <span>A3-Segunda.py</span>
             </button>
-            <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('pbix', this)">
-              <i data-lucide="bar-chart-3" width="16" height="16" aria-hidden="true"></i>
-              <span>dashboard_bacia_leiteira.pbix</span>
-            </button>
             <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('readme', this)">
               <i data-lucide="book-open" width="16" height="16" aria-hidden="true"></i>
               <span>README.md</span>
             </button>
-            <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('base', this)">
-              <i data-lucide="folder" width="16" height="16" aria-hidden="true"></i>
-              <span>base/ (CSVs originais da cooperativa)</span>
+            <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('pbix', this)">
+              <i data-lucide="bar-chart-3" width="16" height="16" aria-hidden="true"></i>
+              <span>dashboard_bacia_leiteira.pbix</span>
             </button>
-            <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('saida', this)">
-              <i data-lucide="folder" width="16" height="16" aria-hidden="true"></i>
-              <span>saida/ (3 CSVs higienizados 1:*)</span>
+            <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('index', this)">
+              <i data-lucide="file-text" width="16" height="16" aria-hidden="true"></i>
+              <span>index.html</span>
             </button>
-            <button type="button" class="tree-item tree-indent-2" role="option" aria-selected="false" onclick="selectTreeItem('chave', this)">
-              <i data-lucide="key-round" width="16" height="16" aria-hidden="true"></i>
-              <span>chave_tanque_data (ex: TC018_2026-03-01)</span>
+            <button type="button" class="tree-item tree-indent-1" role="option" aria-selected="false" onclick="selectTreeItem('pitch', this)">
+              <i data-lucide="video" width="16" height="16" aria-hidden="true"></i>
+              <span>pitch_apresentacao.mp4</span>
             </button>
           </div>
 
           <div class="tile" id="repo-detail-card">
-            <div class="team-label" id="repo-detail-type">DIRETÓRIO RAIZ · GITHUB PAGES</div>
-            <h3 id="repo-detail-title">bacia-leiteira-squad2/</h3>
+            <div class="team-label" id="repo-detail-type">DIRETÓRIO RAIZ · REPOSITÓRIO GITHUB</div>
+            <h3 id="repo-detail-title">A3-EstruturasdeDados/</h3>
             <p id="repo-detail-desc" style="color: var(--on-surface-variant); margin-top: var(--space-sm);">
-              Raiz do repositório no GitHub. Ao publicar com GitHub Pages a partir da branch principal (<code>main</code> / <code>root</code>), a página <code>index.html</code> serve os downloads relativos <code>A3-Segunda.py</code> e <code>dashboard_bacia_leiteira.pbix</code> diretamente para qualquer navegador.
+              Raiz do repositório Isaquegfs/A3-EstruturasdeDados (branch main). Reúne a página de apresentação, o script Python, o painel do Power BI, o README, o vídeo do pitch e a pasta data/ com as planilhas originais.
             </p>
-            <div class="code-box" id="repo-detail-cmd">Configuração GitHub Pages: Settings → Pages → Branch: main (/root)</div>
+            <div class="code-box" id="repo-detail-cmd">github.com/Isaquegfs/A3-EstruturasdeDados</div>
           </div>
         </div>
       </div>
@@ -1877,6 +1987,11 @@
       renderSandbox();
     }
 
+    function resetSandbox() {
+      sandboxState = { removed: {}, trained: {} };
+      renderSandbox();
+    }
+
     function computeTankStats(farms, removedMap, trainedMap) {
       let totalVol = 0;
       let totalWeighted = 0;
@@ -1938,6 +2053,39 @@
         elDelta.style.color = revenueDelta > 0 ? getToken('--secondary') : (revenueDelta < 0 ? getToken('--error') : getToken('--on-surface'));
       }
 
+      // Textos de apoio dos cartões e frase de resultado
+      const sgn = function (b) { return (b >= 0 ? '+' : '') + formatBRL(b); };
+      const setTxt = function (id, txt) { const el = document.getElementById(id); if (el) el.textContent = txt; };
+      const changed = Object.keys(sandboxState.removed).some(function (k) { return sandboxState.removed[k]; }) || trainedCount > 0;
+      setTxt('sb-ccs-sub', changed ? `Original: ${formatNum(baseStats.ccs, 2)} mil` : 'Valor original do tanque');
+      setTxt('sb-tier-sub', changed ? `Original: ${baseStats.tier.name} (${sgn(baseStats.tier.bonus)})` : 'Faixa original do tanque');
+      setTxt('sb-cost-sub', trainedCount > 0 ? `${trainedCount} ${trainedCount === 1 ? 'fazenda treinada' : 'fazendas treinadas'} × R$ 850` : 'Nenhuma fazenda treinada');
+
+      const elSum = document.getElementById('sb-summary');
+      if (elSum) {
+        const remIds = preset.farms.filter(function (f) { return sandboxState.removed[f.id]; }).map(function (f) { return f.id; });
+        const trIds = preset.farms.filter(function (f) { return sandboxState.trained[f.id]; }).map(function (f) { return f.id; });
+        if (!changed) {
+          elSum.innerHTML = `<p><strong>Situação original:</strong> o tanque está na <strong>${baseStats.tier.name}</strong> com CCS de <strong>${formatNum(baseStats.ccs, 2)} mil</strong> cél/ml.</p><p>Clique em <strong>Remover</strong> ou <strong>Treinar</strong> em uma fazenda da tabela para ver o que muda.</p>`;
+        } else {
+          const acts = [];
+          if (remIds.length) acts.push(`removeu <strong>${remIds.join(', ')}</strong>`);
+          if (trIds.length) acts.push(`treinou <strong>${trIds.join(', ')}</strong>`);
+          const tierTxt = curStats.tier.name === baseStats.tier.name
+            ? `a faixa continua <strong>${curStats.tier.name}</strong>`
+            : `a faixa muda de <strong>${baseStats.tier.name}</strong> para <strong>${curStats.tier.name}</strong>`;
+          let line2 = `O CCS vai de <strong>${formatNum(baseStats.ccs, 2)}</strong> para <strong>${formatNum(curStats.ccs, 2)} mil</strong> e ${tierTxt}. `;
+          line2 += revenueDelta === 0 ? 'A receita mensal do grupo não muda.' : `A receita mensal das fazendas que ficam varia em <strong>${sgn(revenueDelta)}</strong>.`;
+          let line3 = '';
+          if (effectiveCost > 0 && revenueDelta > 0) {
+            line3 = `<p>Retorno bruto: <strong>${formatNum((revenueDelta / effectiveCost) * 100, 0)}%</strong> (ganho mensal ÷ custo de ${formatBRL(effectiveCost)}).</p>`;
+          } else if (effectiveCost > 0 && revenueDelta <= 0) {
+            line3 = `<p>Atenção: você gastaria ${formatBRL(effectiveCost)} sem subir de faixa. É por isso que o algoritmo não recomenda esse treinamento.</p>`;
+          }
+          elSum.innerHTML = `<p>Nesta simulação você ${acts.join(' e ')}.</p><p>${line2}</p>${line3}`;
+        }
+      }
+
       // Render table rows with Leave-One-Out classification against baseline
       const tbody = document.getElementById('sb-farm-rows');
       if (tbody) {
@@ -1945,29 +2093,38 @@
         preset.farms.forEach(function (f) {
           const isRem = !!sandboxState.removed[f.id];
           const isTr = !!sandboxState.trained[f.id];
-          const pct = isTr ? getReductionPct(f.ccs) : 0;
-          const displayCcs = f.ccs * (1 - pct);
+          const pctRed = getReductionPct(f.ccs);
+          const displayCcs = f.ccs * (1 - (isTr ? pctRed : 0));
+          const share = baseStats.vol > 0 ? (f.vol / baseStats.vol) * 100 : 0;
 
-          // Leave-one-out vs baseline
+          // Leave-One-Out vs baseline
           const looMap = {};
           looMap[f.id] = true;
           const looStats = computeTankStats(preset.farms, looMap, {});
           let roleLabel = `<span class="csv-meta">Neutro</span>`;
           if (looStats.tier.bonus > baseStats.tier.bonus) {
-            roleLabel = `<span class="badge badge-d">Derruba a Nota</span>`;
+            roleLabel = `<span class="badge badge-d">Derruba a Nota</span><span class="sb-hint">sem ela: ${looStats.tier.name}</span>`;
           } else if (looStats.tier.bonus < baseStats.tier.bonus) {
-            roleLabel = `<span class="badge badge-a">Protege o Grupo</span>`;
+            roleLabel = `<span class="badge badge-a">Protege o Grupo</span><span class="sb-hint">sem ela: ${looStats.tier.name}</span>`;
           }
 
+          const ccsCell = isTr && pctRed > 0
+            ? `${formatNum(displayCcs, 0)}<span class="sb-hint">era ${formatNum(f.ccs, 0)}</span>`
+            : formatNum(f.ccs, 0);
+          const trainLabel = pctRed > 0 ? `Treinar (−${Math.round(pctRed * 100)}%)` : `Treinar (0%)`;
+          const trainLabelOn = pctRed > 0 ? `Treinada (−${Math.round(pctRed * 100)}%)` : `Treinada`;
+
           rowsHtml += `
-            <tr style="${isRem ? 'opacity: 0.45;' : ''}">
-              <td><strong>${f.id}</strong><br>${roleLabel}</td>
+            <tr class="${isRem ? 'sb-row-removed' : ''}">
+              <td><strong>${f.id}</strong></td>
               <td class="num">${f.vol.toLocaleString('pt-BR')}</td>
-              <td class="num">${formatNum(displayCcs, 0)}</td>
+              <td class="num">${formatNum(share, 1)}%</td>
+              <td class="num">${ccsCell}</td>
+              <td>${roleLabel}</td>
               <td>
                 <div class="action-cell">
-                  <button type="button" class="farm-action-btn remove ${isRem ? 'active' : ''}" onclick="toggleFarmRemove('${f.id}')">${isRem ? 'Restaurar' : 'Remover'}</button>
-                  <button type="button" class="farm-action-btn train ${isTr ? 'active' : ''}" onclick="toggleFarmTrain('${f.id}')">${isTr ? 'Treinada' : 'Treinar'}</button>
+                  <button type="button" class="farm-action-btn remove ${isRem ? 'active' : ''}" aria-pressed="${isRem}" title="Nível 2 (Leave-One-Out): mostra o tanque sem esta fazenda" onclick="toggleFarmRemove('${f.id}')">${isRem ? 'Restaurar' : 'Remover'}</button>
+                  <button type="button" class="farm-action-btn train ${isTr ? 'active' : ''}" aria-pressed="${isTr}" title="Nível 3: reduz o CCS desta fazenda com treinamento contra mastite (R$ 850)" onclick="toggleFarmTrain('${f.id}')">${isTr ? trainLabelOn : trainLabel}</button>
                 </div>
               </td>
             </tr>
@@ -2027,6 +2184,7 @@
                 },
                 scales: {
                   x: {
+                    title: { display: true, text: 'Carga = CCS × mil litros (quanto maior, mais pesa na média)', color: getToken('--on-surface-variant') },
                     grid: { color: getToken('--outline-variant') },
                     ticks: { color: getToken('--on-surface-variant'), font: { family: 'IBM Plex Mono' } }
                   },
@@ -2083,52 +2241,82 @@
     // 6. Repository Explorer
     const repoDocs = {
       root: {
-        type: `DIRETÓRIO RAIZ · GITHUB PAGES`,
-        title: `bacia-leiteira-squad2/`,
-        desc: `Raiz do repositório no GitHub. Ao publicar com GitHub Pages a partir da branch principal (main / root), a página index.html serve os downloads relativos A3-Segunda.py e dashboard_bacia_leiteira.pbix diretamente para qualquer navegador.`,
-        cmd: `GitHub Pages: Settings → Pages → Branch: main (/root)`
+        type: `DIRETÓRIO RAIZ · REPOSITÓRIO GITHUB`,
+        title: `A3-EstruturasdeDados/`,
+        desc: `Raiz do repositório Isaquegfs/A3-EstruturasdeDados (branch main). Reúne a página de apresentação, o script Python, o painel do Power BI, o README, o vídeo do pitch e a pasta data/ com as planilhas originais.`,
+        cmd: `github.com/Isaquegfs/A3-EstruturasdeDados`
       },
-      index: {
-        type: `ARTEFATO WEB · LANDING PAGE`,
-        title: `index.html`,
-        desc: `Esta página interativa de apresentação do projeto. Deve permanecer na raiz do repositório para ser servida automaticamente pelo GitHub Pages e apontar via link relativo para os entregáveis.`,
-        cmd: `href="A3-Segunda.py"  |  href="dashboard_bacia_leiteira.pbix"`
+      data: {
+        type: `CAMADA DE ENTRADA · 6 CSVs`,
+        title: `data/`,
+        desc: `Planilhas originais da cooperativa, exatamente como entregues pelo professor (separador ';', UTF-8, março a junho de 2026). O pipeline consome estes 6 arquivos e grava os 3 CSVs do Power BI na pasta de onde é executado.`,
+        cmd: `cd data && python ../A3-Segunda.py`
+      },
+      fazendas: {
+        type: `CADASTRO · data/fazendas.csv`,
+        title: `fazendas.csv`,
+        desc: `962 cadastros de fazendas. O pipeline usa só fazenda_id e tanque_id, que ligam cada fazenda ao tanque onde ela entrega o leite, e descarta as demais colunas. Traz 12 cadastros de teste (F9000 a F9011), removidos na sanitização.`,
+        cmd: `fazenda_id → tanque_id`
+      },
+      tanques: {
+        type: `CADASTRO · data/tanques.csv`,
+        title: `tanques.csv`,
+        desc: `486 tanques: 58 comunitários (TC001 em diante) e 428 individuais (TI####). O pipeline mantém apenas os comunitários, que são o foco do projeto.`,
+        cmd: `filtro: tipo = 'comunitario'  →  58 tanques`
+      },
+      analises: {
+        type: `LABORATÓRIO · data/analises.csv`,
+        title: `analises.csv`,
+        desc: `3.800 análises de CCS por fazenda (data, origem_id, ccs, ccs_unidade). Cerca de 16% vêm em cél/ml e são convertidas para mil cél/ml, a unidade das faixas de bonificação.`,
+        cmd: `ccs_unidade: mil_cel_ml | cel_ml (÷ 1.000)`
+      },
+      coletas: {
+        type: `OPERAÇÃO · data/coletas.csv`,
+        title: `coletas.csv`,
+        desc: `38.924 coletas de leite por fazenda (data, fazenda_id, volume, unidade). É a base do volume de cada tanque. Traz datas impossíveis (descartadas), coletas em KG (convertidas para litros a 1,032 kg/L) e coletas da fazenda de teste F9999.`,
+        cmd: `volume em L  |  KG ÷ 1,032 = L`
+      },
+      faixas: {
+        type: `REGRA DE NEGÓCIO · data/faixas_bonificacao.csv`,
+        title: `faixas_bonificacao.csv`,
+        desc: `Tabela de bonificação por CCS (mil cél/ml): Faixa A abaixo de 250 paga +R$ 0,12/L; B, de 250 a 399, +R$ 0,06/L; C, de 400 a 599, R$ 0,00/L; D, de 600 em diante, desconta R$ 0,05/L. O preço base do leite é R$ 2,45/L.`,
+        cmd: `faixa;ccs_min_mil;ccs_max_mil;bonus_reais_por_litro`
+      },
+      efeito: {
+        type: `REGRA DE NEGÓCIO · data/efeito_treinamento.csv`,
+        title: `efeito_treinamento.csv`,
+        desc: `Efeito esperado do treinamento contra mastite por faixa de CCS: reduz 0% abaixo de 250, 12% de 250 a 399, 22% de 400 a 599 e 30% de 600 em diante. Cada fazenda treinada custa R$ 850,00. Alimenta o Nível 3 (algoritmo guloso).`,
+        cmd: `reducao_esperada_pct · custo_reais (R$ 850,00)`
       },
       py: {
         type: `MOTOR ANALÍTICO · PYTHON 3`,
         title: `A3-Segunda.py`,
-        desc: `Script principal contendo carregar_csv_resiliente(), sanitização dos 5 defeitos (D1–D5), cálculo de média ponderada (Nível 1), simulação contrafactual Leave-One-Out (Nível 2) e algoritmo guloso com blindagem de casos limite (Nível 3).`,
-        cmd: `python A3-Segunda.py  # Executa executar_pipeline_squad2()`
-      },
-      pbix: {
-        type: `PAINEL EXECUTIVO · POWER BI`,
-        title: `dashboard_bacia_leiteira.pbix`,
-        desc: `Dashboard interativo conectado aos 3 arquivos CSV exportados na camada dimensional. Utiliza relacionamentos 1:* ancorados na chave composta chave_tanque_data sem ambiguidades.`,
-        cmd: `Relacionamento Star Schema: chave_tanque_data (1:*)`
+        desc: `Script do pipeline: carrega os CSVs com carregar_csv_resiliente(), sanitiza os 5 defeitos (D1 a D5), calcula a média ponderada (Nível 1), simula o Leave-One-Out (Nível 2) e roda o algoritmo guloso com blindagem de casos limite (Nível 3). Gera 3 CSVs para o Power BI.`,
+        cmd: `cd data && python ../A3-Segunda.py  # lê e grava na pasta atual`
       },
       readme: {
         type: `DOCUMENTAÇÃO · MARKDOWN`,
         title: `README.md`,
-        desc: `Guia técnico com instruções de execução do ambiente Python, regras de negócio da cooperativa (Preço base R$ 2,45/L, faixas A–D) e validação do Tanque TC018.`,
-        cmd: `Documentação do projeto integrador · UNA Betim`
+        desc: `Documentação do repositório exibida na página inicial do GitHub, com a apresentação do projeto Bacia Leiteira da Squad 2.`,
+        cmd: `Projeto Integrador AgTech · UNA Betim`
       },
-      base: {
-        type: `CAMADA DE ENTRADA · 18 CSVs`,
-        title: `base/`,
-        desc: `Armazena os arquivos operacionais originais da cooperativa (01/03/2026 a 30/06/2026), dos quais o pipeline consome exclusivamente os 6 arquivos necessários à Squad 2 (separador ';', UTF-8).`,
-        cmd: `base/fazendas.csv · tanques.csv · analises.csv · coletas.csv`
+      pbix: {
+        type: `PAINEL EXECUTIVO · POWER BI`,
+        title: `dashboard_bacia_leiteira.pbix`,
+        desc: `Dashboard do Power BI conectado aos 3 CSVs gerados pelo script (resumo mensal, simulação Leave-One-Out e plano de treinamento). Os relacionamentos 1:* usam a chave composta chave_tanque_data, como TC018_2026-03-01.`,
+        cmd: `Relacionamento: chave_tanque_data (1:*)`
       },
-      saida: {
-        type: `CAMADA DIMENSIONAL · 3 CSVs`,
-        title: `saida/`,
-        desc: `Recebe os três arquivos gerados dinamicamente pelo Python (separador ';', encoding utf-8-sig): squad2_tanques_resumo_mensal.csv, squad2_simulacao_leave_one_out.csv e squad2_plano_treinamento.csv.`,
-        cmd: `Exportação dinâmica sem nomes ou valores hardcoded`
+      index: {
+        type: `ARTEFATO WEB · PÁGINA DE APRESENTAÇÃO`,
+        title: `index.html`,
+        desc: `Esta página interativa. Fica na raiz para o GitHub Pages servi-la como página inicial, oferece o download do script e do dashboard por links relativos e toca o vídeo do pitch.`,
+        cmd: `href="A3-Segunda.py"  |  href="dashboard_bacia_leiteira.pbix"`
       },
-      chave: {
-        type: `INTEGRIDADE RELACIONAL · POWER BI`,
-        title: `chave_tanque_data`,
-        desc: `Chave composta exclusiva gerada para cada combinação tanque + mês normalizado no primeiro dia (ex: TC018_2026-03-01), garantindo ordenação cronológica nativa e filtragem sincronizada no dashboard.`,
-        cmd: `Formato padrão: <TANQUE_ID>_<YYYY-MM-01>`
+      pitch: {
+        type: `VÍDEO · MP4`,
+        title: `pitch_apresentacao.mp4`,
+        desc: `Vídeo do pitch de apresentação, reproduzido no player da seção Pitch de Apresentação desta página. Precisa ficar na mesma pasta do index.html. O GitHub aceita arquivos de até 100 MB.`,
+        cmd: `<source src="pitch_apresentacao.mp4" type="video/mp4">`
       }
     };
 
